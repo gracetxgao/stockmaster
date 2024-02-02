@@ -1,5 +1,7 @@
 # Animal Kingdom Simulation
 
+## Description
+
 ### What will the application do?
 The application will simulate the behaviour of different species of animals in the food chain. There will be animals 
 on screen, which will randomly move around. When an animal touches an animal that's higher on the food
@@ -15,3 +17,12 @@ I'm interested in this topic because I enjoy learning about animal behaviour and
 of programming, I'm interested in implementing this project because I want to explore how to perform statistical
 analysis with Java to include information such as the number of each species, the amount relative 
 to other animals, and average life span.
+
+## User Stories
+
+* Users can add animals to the total animals displayed on screen
+* Users can create new species of animals
+* Users can view lists of animal species
+* Users can view animal counts of each species
+* Users can view statistics of specific species
+* Users can cause a mass extinction and remove all animals
