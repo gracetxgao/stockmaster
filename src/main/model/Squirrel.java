@@ -1,0 +1,12 @@
+package model;
+
+public class Squirrel extends Animal {
+    public Squirrel(Position pos, int speed, int lifeSpan, int rank) {
+        super(pos, speed, lifeSpan, rank);
+    }
+
+    @Override
+    public Position move() {
+        return null;
+    }
+}
