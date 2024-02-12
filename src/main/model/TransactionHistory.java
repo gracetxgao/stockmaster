@@ -10,6 +10,8 @@ public class TransactionHistory {
         this.transactionHistory = new ArrayList<Transaction>();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds transaction to transaction history
     public void addTransaction(Transaction t) {
         transactionHistory.add(t);
     }

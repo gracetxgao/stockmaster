@@ -108,13 +108,12 @@ public class ConsoleApp {
         } else if (userInput.equals("5")) {
             handleNextDay();
             showMarketStatus();
-        } else if (userInput.equals("q")) {
-            stop = true;
         } else {
-            System.out.println("Invalid input");
+            stop = true;
         }
     }
 
+    // EFFECTS: displays stock options
     private void showChooseStock() {
         System.out.println("Choose from:");
         for (int i = 0; i < stockList.size(); i++) {
@@ -122,6 +121,8 @@ public class ConsoleApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: allow user to purchase X amounts of the stock
     private void handleBuyStock(String userInput) {
         Stock chosenStock = stockList.get(Integer.valueOf(userInput));
         if (userInput.equals("q")) {
@@ -142,6 +143,8 @@ public class ConsoleApp {
         handleContinue(userInput);
     }
 
+    // MODIFIES: this
+    // EFFECTS: allow user to sell X amounts of the stock
     private void handleSellStock(String userInput) {
         Stock chosenStock = stockList.get(Integer.valueOf(userInput));
         if (userInput.equals("q")) {
@@ -161,14 +164,13 @@ public class ConsoleApp {
         handleContinue(userInput);
     }
 
-    private void showChooseAmount() {
-        System.out.println("enter amount:");
-    }
-
+    // EFFECTS: shows user transaction history
     private void handleViewTransactionHistory() {
         profile.viewTransactionHistory();
     }
 
+    // MODIFIES: this
+    // EFFECTS: shows price history for given stock
     private void handleViewStockPriceHistory(String userInput) {
         if (userInput.equals("q")) {
             stop = true;
@@ -177,12 +179,15 @@ public class ConsoleApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: generates new prices for each stock
     private void handleNextDay() {
         for (Stock s : stockList) {
             s.getNewPrice(getPercentageChange());
         }
     }
 
+    // EFFECTS: generates value for percentage change
     private double getPercentageChange() {
         double change = Math.random() / 10;
         if (Math.round(change * 1000) % 2 == 1) {
@@ -195,8 +200,14 @@ public class ConsoleApp {
         System.out.println("Continue? (y/n)");
     }
 
+    private void showChooseAmount() {
+        System.out.println("enter amount:");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: quits application according to input
     private void handleContinue(String userInput) {
-        if (userInput.equals("q")) {
+        if (userInput.equals("n")) {
             stop = true;
         }
     }
