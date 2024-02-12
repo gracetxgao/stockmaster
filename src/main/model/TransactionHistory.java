@@ -13,4 +13,8 @@ public class TransactionHistory {
     public void addTransaction(Transaction t) {
         transactionHistory.add(t);
     }
+
+    public List<Transaction> getTransactionHistory() {
+        return this.transactionHistory;
+    }
 }

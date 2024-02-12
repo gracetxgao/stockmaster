@@ -29,7 +29,6 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: initializes all fields
     private void init() {
-        profile = new Profile();
         stop = false;
         input = new Scanner(System.in);
         rand = new Random();
@@ -40,6 +39,7 @@ public class ConsoleApp {
         rivian = new Rivian("RIVN", BigDecimal.valueOf(20.00));
         tesla = new Tesla("TSLA", BigDecimal.valueOf(30.00));
         stockList = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
+        profile = new Profile(stockList);
         input.useDelimiter("\n");
     }
 
@@ -62,6 +62,7 @@ public class ConsoleApp {
         System.out.println("Current user status (CAD):");
         System.out.println("\tNet worth: " + profile.getNetWorth());
         System.out.println("\tProfit: " + profile.getProfit());
+        System.out.println("\tShares owned: " + profile.getOwnedStocks());
         System.out.println("Current stock prices (CAD):");
         for (Stock s : stockList) {
             System.out.println("\t" + s.getCompany() + " - " + s.getPrice());
@@ -109,53 +110,34 @@ public class ConsoleApp {
     }
 
     private void handleBuyStock(String userInput) {
+        Stock chosenStock = stockList.get(Integer.valueOf(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
             showChooseAmount();
             int amount = Integer.parseInt(input.nextLine());
-            for (int i = 0; i < amount; i++) {
-                if (userInput.equals("1")) {
-                    profile.buyStock(apple);
-                } else if (userInput.equals("2")) {
-                    profile.buyStock(google);
-                } else if (userInput.equals("3")) {
-                    profile.buyStock(nvidia);
-                } else if (userInput.equals("4")) {
-                    profile.buyStock(amazon);
-                } else if (userInput.equals("5")) {
-                    profile.buyStock(rivian);
-                } else if (userInput.equals("6")) {
-                    profile.buyStock(tesla);
-                } else {
-                    System.out.println("Invalid input");
-                }
+            BigDecimal cost = chosenStock.getPrice().multiply(BigDecimal.valueOf(amount));
+            if (profile.getNetWorth().compareTo(cost) == -1) {
+                System.out.println("Insufficient funds");
+            } else {
+                profile.buyStock(chosenStock, amount);
+                profile.changeOwnedStocks(chosenStock, amount);
             }
         }
     }
 
     private void handleSellStock(String userInput) {
+        Stock chosenStock = stockList.get(Integer.valueOf(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
             showChooseAmount();
             int amount = Integer.parseInt(input.nextLine());
-            for (int i = 0; i < amount; i++) {
-                if (userInput.equals("1")) {
-                    profile.sellStock(apple);
-                } else if (userInput.equals("2")) {
-                    profile.sellStock(google);
-                } else if (userInput.equals("3")) {
-                    profile.sellStock(nvidia);
-                } else if (userInput.equals("4")) {
-                    profile.sellStock(amazon);
-                } else if (userInput.equals("5")) {
-                    profile.sellStock(rivian);
-                } else if (userInput.equals("6")) {
-                    profile.sellStock(tesla);
-                } else {
-                    System.out.println("Invalid input");
-                }
+            if (profile.getOwnedStocks().get(chosenStock.getCompany()) < amount) {
+                System.out.println("Not enough owned shares");
+            } else {
+                profile.sellStock(chosenStock, amount);
+                profile.changeOwnedStocks(chosenStock, amount);
             }
         }
     }

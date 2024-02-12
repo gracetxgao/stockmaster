@@ -6,10 +6,24 @@ import java.math.BigDecimal;
 public class Transaction {
     private Stock stock;
     private BigDecimal price;
+    private int amount;
 
-    // EFFECTS: constructs a transaction with given stock and price
-    public Transaction(Stock stock, BigDecimal price) {
+    // EFFECTS: constructs a transaction with given stock, price, and amount
+    public Transaction(Stock stock, BigDecimal price, int amount) {
         this.stock = stock;
         this.price = price;
+        this.amount = amount;
+    }
+
+    public Stock getStock() {
+        return this.stock;
+    }
+
+    public BigDecimal getPrice() {
+        return this.price;
+    }
+
+    public int getAmount() {
+        return this.amount;
     }
 }
