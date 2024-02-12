@@ -54,7 +54,7 @@ public class ConsoleApp {
             userInput = input.nextLine().toLowerCase();
             handleOpeningOptions(userInput);
         }
-        System.out.println("\tNet worth: $" + profile.getNetWorth());
+        System.out.println("\tFunds: $" + profile.getFunds());
         System.out.println("\tProfit: $" + profile.getProfit());
         System.out.println("Simulator ended.");
     }
@@ -70,7 +70,7 @@ public class ConsoleApp {
     // EFFECTS: shows current user status
     private void showUserStatus() {
         System.out.println("Current user status:");
-        System.out.println("\tNet worth: $" + profile.getNetWorth());
+        System.out.println("\tFunds: $" + profile.getFunds());
         System.out.println("\tProfit: $" + profile.getProfit());
         System.out.println("\tShares owned: " + profile.getOwnedStocks());
     }
@@ -145,7 +145,7 @@ public class ConsoleApp {
             stop = true;
         } else {
             showChooseAmount();
-            int amount = Integer.parseInt(input.nextLine());
+            int amount = (-1 * Integer.parseInt(input.nextLine()));
             profile.sellStock(chosenStock, amount);
         }
         showContinue();

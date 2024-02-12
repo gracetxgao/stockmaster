@@ -6,7 +6,7 @@ import java.util.List;
 
 // represents a user profile with a net worth, profit, and transaction history
 public class Profile {
-    private BigDecimal netWorth;
+    private BigDecimal funds;
     private BigDecimal profit;
     private TransactionHistory transactionHistory;
     private HashMap<String, Integer> ownedStocks;
@@ -14,7 +14,7 @@ public class Profile {
     // EFFECTS: constructs new user profile with $100 net worth, $0 profit, empty transaction history, and 0 shares of
     //          each stock
     public Profile(List<Stock> stockList) {
-        this.netWorth = new BigDecimal(100);
+        this.funds = new BigDecimal(100);
         this.profit = new BigDecimal(0);
         this.transactionHistory = new TransactionHistory();
         this.ownedStocks = new HashMap<String, Integer>();
@@ -23,8 +23,8 @@ public class Profile {
         }
     }
 
-    public BigDecimal getNetWorth() {
-        return this.netWorth;
+    public BigDecimal getFunds() {
+        return this.funds;
     }
 
     public BigDecimal getProfit() {
@@ -53,16 +53,16 @@ public class Profile {
     }
 
     // MODIFIES: this
-    // EFFECTS: if user has enough money, subtracts price from net worth and profit, adds transaction to history,
+    // EFFECTS: if user has enough money, subtracts price from funds, adds transaction to history,
     //          adds shares to owned stock
     public void buyStock(Stock stock, int amount) {
         BigDecimal cost = stock.getPrice().multiply(BigDecimal.valueOf(amount));
-        if (this.netWorth.compareTo(cost) == -1) {
+        if (this.funds.compareTo(cost) == -1) {
             System.out.println("Insufficient funds");
         } else {
-            this.netWorth = this.netWorth.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
             this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
-            Transaction t = new Transaction(stock, stock.getPrice().negate(), amount);
+            Transaction t = new Transaction(stock, stock.getPrice(), amount);
             this.transactionHistory.addTransaction(t);
             String company = stock.getCompany();
             BigDecimal price = stock.getPrice();
@@ -73,20 +73,20 @@ public class Profile {
     }
 
     // MODIFIES: this
-    // EFFECTS: if user owns enough shares, adds price to net worth and profit, adds transaction to history,
+    // EFFECTS: if user owns enough shares, adds price to funds, adds transaction to history,
     //          removes shares from owned stock
     public void sellStock(Stock stock, int amount) {
-        if (ownedStocks.get(stock.getCompany()) < amount) {
+        if (ownedStocks.get(stock.getCompany()) < Math.abs(amount)) {
             System.out.println("Not enough owned shares");
         } else {
-            this.netWorth = this.netWorth.add(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
-            this.profit = this.profit.add(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
             Transaction t = new Transaction(stock, stock.getPrice(), amount);
             this.transactionHistory.addTransaction(t);
             String company = stock.getCompany();
             BigDecimal price = stock.getPrice();
-            System.out.println("Sold " + amount + " shares of " + company + " for $" + price + " each");
-            changeOwnedStocks(stock, -amount);
+            System.out.println("Sold " + Math.abs(amount) + " shares of " + company + " for $" + price + " each");
+            changeOwnedStocks(stock, amount);
         }
     }
 }

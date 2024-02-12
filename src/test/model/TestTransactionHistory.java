@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestTransactionHistory {
     private TransactionHistory th;
     private Transaction t1;
+    private Transaction t2;
     private Stock s1;
 
     @BeforeEach
@@ -19,6 +20,7 @@ public class TestTransactionHistory {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
         th = new TransactionHistory();
         t1 = new Transaction(s1, BigDecimal.valueOf(415), 1);
+        t2 = new Transaction(s1, BigDecimal.valueOf(415), -1);
     }
 
     @Test
@@ -43,13 +45,14 @@ public class TestTransactionHistory {
     void testGetTransactionHistory() {
         th.addTransaction(t1);
         th.addTransaction(t1);
+        th.addTransaction(t2);
         int amount = t1.getAmount();
-        String company = t1.getStock().getCompany();
         BigDecimal price = t1.getPrice();
         List<String> expectedOutput = new ArrayList<String>();
-        expectedOutput.add("Sold " + amount + " shares of " + company + " for $" + price + " each");
-        expectedOutput.add("Sold " + amount + " shares of " + company + " for $" + price + " each");
+        expectedOutput.add("Bought " + amount + " shares of MSFT for $" + price + " each");
+        expectedOutput.add("Bought " + amount + " shares of MSFT for $" + price + " each");
+        expectedOutput.add("Sold " +  amount + " shares of MSFT for $" + price.negate() + " each");
         assertEquals(expectedOutput, th.getTransactionHistory());
-        assertEquals(2, th.getTransactionHistorySize());
+        assertEquals(3, th.getTransactionHistorySize());
     }
 }

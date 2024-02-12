@@ -23,11 +23,10 @@ public class TransactionHistory {
             int amt = t.getAmount();
             String company = t.getStock().getCompany();
             BigDecimal price = t.getPrice();
-            BigDecimal sellPrice = price.multiply(BigDecimal.valueOf(-1));
-            if (price.compareTo(BigDecimal.valueOf(0)) == -1) {
-                outputHistory.add("Bought " + amt + " shares of " + company + " for $" + sellPrice + " each");
+            if (amt < 0) {
+                outputHistory.add("Sold " + Math.abs(amt) + " shares of " + company + " for $" + price + " each");
             } else {
-                outputHistory.add("Sold " + amt + " shares of " + company + " for $" + price + " each");
+                outputHistory.add("Bought " + amt + " shares of " + company + " for $" + price + " each");
             }
         }
 
