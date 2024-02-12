@@ -21,8 +21,8 @@ public class ProfileTest {
     @BeforeEach
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
-        s2  = new Stock("DIS", BigDecimal.valueOf(10));
-        s3  = new Stock("BA", BigDecimal.valueOf(10));
+        s2 = new Stock("DIS", BigDecimal.valueOf(10));
+        s3 = new Stock("BA", BigDecimal.valueOf(10));
         stockList = new ArrayList<>(Arrays.asList(s1, s3));
         p1 = new Profile(stockList);
     }

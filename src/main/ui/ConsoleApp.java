@@ -181,7 +181,7 @@ public class ConsoleApp {
     private double getPercentageChange() {
         double change = Math.random() / 10;
         if (Math.round(change * 1000) % 2 == 1) {
-            change = - change;
+            change = -change;
         }
         return change;
     }
