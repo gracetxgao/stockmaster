@@ -1,22 +1,20 @@
 package model;
 
-import model.Position;
+import java.util.ArrayList;
 
 public abstract class Animal {
-    protected Position pos;
-    protected int speed;
-    protected int timeAlive;
-    protected int lifeSpan;
-    protected int rank;
+    private Position pos;
+    private int timeAlive;
 
-    public Animal(Position pos, int speed, int lifeSpan, int rank) {
+    public Animal(Position pos) {
         this.pos = pos;
-        this.speed = speed;
         this.timeAlive = 0;
-        this.lifeSpan = lifeSpan;
-        this.rank = rank;
     }
 
-    public abstract Position move();
-
+    public ArrayList<Integer> getPos() {
+        ArrayList<Integer> posList = new ArrayList<Integer>(2);
+        posList.add(this.pos.getX());
+        posList.add(this.pos.getY());
+        return posList;
+    }
 }
