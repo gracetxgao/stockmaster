@@ -1,22 +1,24 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Stock {
 
     private String company;
-    private int price;
-    private List<Integer> priceHistory;
+    private BigDecimal price;
+    private List<BigDecimal> priceHistory;
 
-    public Stock(String company, int price) {
+    public Stock(String company, BigDecimal price) {
         this.company = company;
         this.price = price;
-        this.priceHistory = new ArrayList<Integer>();
+        this.priceHistory = new ArrayList<BigDecimal>();
     }
 
-    public void getNewPrice(int change) {
-        int newPrice = this.price * (change / 100) + this.price;
+    public void getNewPrice(double change) {
+        BigDecimal newPrice;
+        newPrice = this.price.multiply(BigDecimal.valueOf(change)).add(this.price);
         this.price = newPrice;
         this.priceHistory.add(newPrice);
     }
@@ -25,7 +27,7 @@ public abstract class Stock {
         System.out.println(priceHistory);
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 

@@ -2,6 +2,7 @@ package ui;
 
 import model.*;
 
+import java.math.BigDecimal;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -28,12 +29,12 @@ public class TerminalApp {
         stop = false;
         input = new Scanner(System.in);
         rand = new Random();
-        apple = new Apple("AAPL", 150);
-        google = new Google("GOOG", 125);
-        nvidia = new Nvidia("NVDA", 720);
-        amazon = new Amazon("AMZN", 175);
-        rivian = new Rivian("RIVN", 20);
-        tesla = new Tesla("TSLA", 30);
+        apple = new Apple("AAPL", BigDecimal.valueOf(150));
+        google = new Google("GOOG", BigDecimal.valueOf(125));
+        nvidia = new Nvidia("NVDA", BigDecimal.valueOf(720));
+        amazon = new Amazon("AMZN", BigDecimal.valueOf(175));
+        rivian = new Rivian("RIVN", BigDecimal.valueOf(20));
+        tesla = new Tesla("TSLA", BigDecimal.valueOf(30));
         input.useDelimiter("\n");
     }
 
@@ -83,6 +84,8 @@ public class TerminalApp {
             handleViewStockPriceHistory(userInput);
         } else if (userInput.equals("5")) {
             handleNextDay();
+        } else if (userInput.equals("q")) {
+            stop = true;
         } else {
             System.out.println("Invalid input");
         }
@@ -163,30 +166,26 @@ public class TerminalApp {
         if (userInput.equals("q")) {
             stop = true;
         } else {
-            showChooseAmount();
-            int amount = Integer.parseInt(input.nextLine());
-            for (int i = 0; i < amount; i++) {
-                if (userInput.equals("1")) {
-                    apple.viewHistory();
-                } else if (userInput.equals("2")) {
-                    google.viewHistory();
-                } else if (userInput.equals("3")) {
-                    nvidia.viewHistory();
-                } else if (userInput.equals("4")) {
-                    amazon.viewHistory();
-                } else if (userInput.equals("5")) {
-                    rivian.viewHistory();
-                } else if (userInput.equals("6")) {
-                    tesla.viewHistory();
-                } else {
-                    System.out.println("Invalid input");
-                }
+            if (userInput.equals("1")) {
+                apple.viewHistory();
+            } else if (userInput.equals("2")) {
+                google.viewHistory();
+            } else if (userInput.equals("3")) {
+                nvidia.viewHistory();
+            } else if (userInput.equals("4")) {
+                amazon.viewHistory();
+            } else if (userInput.equals("5")) {
+                rivian.viewHistory();
+            } else if (userInput.equals("6")) {
+                tesla.viewHistory();
+            } else {
+                System.out.println("Invalid input");
             }
         }
     }
 
     private void handleNextDay() {
-        int change = rand.nextInt(100);
+        double change = Math.random();
         apple.getNewPrice(change);
         google.getNewPrice(change);
         nvidia.getNewPrice(change);
