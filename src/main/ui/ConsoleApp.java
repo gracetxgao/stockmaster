@@ -6,7 +6,8 @@ import java.math.BigDecimal;
 import java.util.Random;
 import java.util.Scanner;
 
-public class TerminalApp {
+// Console based stock market simulator
+public class ConsoleApp {
     private Scanner input;
     private Profile profile;
     private Boolean stop;
@@ -20,12 +21,15 @@ public class TerminalApp {
     private Stock rivian;
     private Stock tesla;
 
-    public TerminalApp() {
+    // EFFECTS: runs console app
+    public ConsoleApp() {
         start();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes all fields
     private void init() {
-        profile = new Profile("name");
+        profile = new Profile();
         stop = false;
         input = new Scanner(System.in);
         rand = new Random();
@@ -38,9 +42,11 @@ public class TerminalApp {
         input.useDelimiter("\n");
     }
 
+    // MODIFIES: this
+    // EFFECTS: starts app and processes user input
     private void start() {
         init();
-        System.out.println("Hi " + profile.getName() + "! Your current net worth is " + profile.getNetWorth() + ".\n");
+        System.out.println("Hi! Your current net worth is $" + profile.getNetWorth() + "CAD.\n");
         System.out.println("Choose an option below to get started!");
         while (!stop) {
             showOpeningOptions();
@@ -50,14 +56,18 @@ public class TerminalApp {
         System.out.println("Simulator ended.");
     }
 
+    // EFFECTS: shows current market status and user options
     private void showOpeningOptions() {
-        System.out.println("Current prices:\n");
+        System.out.println("Current prices (CAD):");
         System.out.println("\tApple - " + apple.getPrice());
         System.out.println("\tGoogle - " + google.getPrice());
         System.out.println("\tNvidia - " + nvidia.getPrice());
         System.out.println("\tAmazon - " + amazon.getPrice());
         System.out.println("\tRivian - " + rivian.getPrice());
         System.out.println("\tTesla - " + tesla.getPrice());
+        System.out.println("Current user status (CAD):");
+        System.out.println("\tNet worth: " + profile.getNetWorth());
+        System.out.println("\tProfit: " + profile.getProfit());
         System.out.println("Select from:");
         System.out.println("\t1 - buy stocks");
         System.out.println("\t2 - sell stocks");
@@ -67,6 +77,8 @@ public class TerminalApp {
         System.out.println("\tq - quit");
     }
 
+    // MODIFIES: this
+    // EFFECTS: handles user input for opening options
     private void handleOpeningOptions(String userInput) {
         if (userInput.equals("1")) {
             showChooseStock();
@@ -155,7 +167,7 @@ public class TerminalApp {
     }
 
     private void showChooseAmount() {
-        System.out.println("\nenter amount:");
+        System.out.println("enter amount:");
     }
 
     private void handleViewTransactionHistory() {
@@ -185,13 +197,20 @@ public class TerminalApp {
     }
 
     private void handleNextDay() {
+        apple.getNewPrice(getPercentageChange());
+        google.getNewPrice(getPercentageChange());
+        nvidia.getNewPrice(getPercentageChange());
+        amazon.getNewPrice(getPercentageChange());
+        rivian.getNewPrice(getPercentageChange());
+        tesla.getNewPrice(getPercentageChange());
+    }
+
+    private double getPercentageChange() {
         double change = Math.random();
-        apple.getNewPrice(change);
-        google.getNewPrice(change);
-        nvidia.getNewPrice(change);
-        amazon.getNewPrice(change);
-        rivian.getNewPrice(change);
-        tesla.getNewPrice(change);
+        if (Math.round(change * 100) % 2 == 1) {
+            change = - change;
+        }
+        return change;
     }
 
 }

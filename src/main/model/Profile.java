@@ -2,21 +2,17 @@ package model;
 
 import java.math.BigDecimal;
 
+// represents an user profile with a net worth, profit, and transaction history
 public class Profile {
-    private String name;
     private BigDecimal netWorth;
     private BigDecimal profit;
     private TransactionHistory transactionHistory;
 
-    public Profile(String name) {
-        this.name = name;
+    // EFFECTS: constructs new user profile with $100 net worth and $0 profit and empty transaction history
+    public Profile() {
         this.netWorth = new BigDecimal(100);
         this.profit = new BigDecimal(0);
         this.transactionHistory = new TransactionHistory();
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public BigDecimal getNetWorth() {
@@ -27,10 +23,15 @@ public class Profile {
         return this.profit;
     }
 
+    // EFFECTS: prints transaction history
     public void viewTransactionHistory() {
         System.out.println(transactionHistory);
     }
 
+    // REQUIRES: user's net worth is more than the stock price
+    // MODIFIES: this
+    // EFFECTS: subtracts price from net worth and profit and adds transaction to history
+    //          (negative price represents buying)
     public void buyStock(Stock stock) {
         this.netWorth = this.netWorth.subtract(stock.getPrice());
         this.profit = this.profit.subtract(stock.getPrice());
@@ -38,6 +39,10 @@ public class Profile {
         this.transactionHistory.addTransaction(t);
     }
 
+    // REQUIRES: user has enough shares of the stock they choose to sell
+    // MODIFIES: this
+    // EFFECTS: adds price to net worth and profit and adds transaction to history
+    //          (positive price represents selling)
     public void sellStock(Stock stock) {
         this.netWorth = this.netWorth.add(stock.getPrice());
         this.profit = this.profit.add(stock.getPrice());
