@@ -23,8 +23,10 @@ public abstract class Stock {
     public void getNewPrice(double change) {
         BigDecimal newPrice;
         newPrice = this.price.multiply(BigDecimal.valueOf(change)).add(this.price);
-        this.price = newPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        this.priceHistory.add(newPrice);
+        BigDecimal roundedNewPrice;
+        roundedNewPrice = newPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        this.price = roundedNewPrice;
+        this.priceHistory.add(roundedNewPrice);
     }
 
     // EFFECTS: prints price history

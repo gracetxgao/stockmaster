@@ -3,8 +3,7 @@ package ui;
 import model.*;
 
 import java.math.BigDecimal;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 // Console based stock market simulator
 public class ConsoleApp {
@@ -20,6 +19,7 @@ public class ConsoleApp {
     private Stock amazon;
     private Stock rivian;
     private Stock tesla;
+    private List<Stock> stockList;
 
     // EFFECTS: runs console app
     public ConsoleApp() {
@@ -33,12 +33,13 @@ public class ConsoleApp {
         stop = false;
         input = new Scanner(System.in);
         rand = new Random();
-        apple = new Apple("AAPL", BigDecimal.valueOf(150));
-        google = new Google("GOOG", BigDecimal.valueOf(125));
-        nvidia = new Nvidia("NVDA", BigDecimal.valueOf(720));
-        amazon = new Amazon("AMZN", BigDecimal.valueOf(175));
-        rivian = new Rivian("RIVN", BigDecimal.valueOf(20));
-        tesla = new Tesla("TSLA", BigDecimal.valueOf(30));
+        apple = new Apple("AAPL", BigDecimal.valueOf(150.00));
+        google = new Google("GOOG", BigDecimal.valueOf(125.00));
+        nvidia = new Nvidia("NVDA", BigDecimal.valueOf(720.00));
+        amazon = new Amazon("AMZN", BigDecimal.valueOf(175.00));
+        rivian = new Rivian("RIVN", BigDecimal.valueOf(20.00));
+        tesla = new Tesla("TSLA", BigDecimal.valueOf(30.00));
+        stockList = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
         input.useDelimiter("\n");
     }
 
@@ -58,16 +59,13 @@ public class ConsoleApp {
 
     // EFFECTS: shows current market status and user options
     private void showOpeningOptions() {
-        System.out.println("Current prices (CAD):");
-        System.out.println("\tApple - " + apple.getPrice());
-        System.out.println("\tGoogle - " + google.getPrice());
-        System.out.println("\tNvidia - " + nvidia.getPrice());
-        System.out.println("\tAmazon - " + amazon.getPrice());
-        System.out.println("\tRivian - " + rivian.getPrice());
-        System.out.println("\tTesla - " + tesla.getPrice());
         System.out.println("Current user status (CAD):");
         System.out.println("\tNet worth: " + profile.getNetWorth());
         System.out.println("\tProfit: " + profile.getProfit());
+        System.out.println("Current stock prices (CAD):");
+        for (Stock s : stockList) {
+            System.out.println("\t" + s.getCompany() + " - " + s.getPrice());
+        }
         System.out.println("Select from:");
         System.out.println("\t1 - buy stocks");
         System.out.println("\t2 - sell stocks");
@@ -105,13 +103,9 @@ public class ConsoleApp {
 
     private void showChooseStock() {
         System.out.println("Choose from:");
-        System.out.println("\t1 - AAPL");
-        System.out.println("\t2 - GOOG");
-        System.out.println("\t3 - NVDA");
-        System.out.println("\t4 - AMZN");
-        System.out.println("\t5 - RIVN");
-        System.out.println("\t6 - TSLA");
-        System.out.println("\tq - quit");
+        for (int i = 0; i < stockList.size(); i++) {
+            System.out.println("\t" + i + " - " + stockList.get(i).getCompany());
+        }
     }
 
     private void handleBuyStock(String userInput) {
@@ -178,31 +172,14 @@ public class ConsoleApp {
         if (userInput.equals("q")) {
             stop = true;
         } else {
-            if (userInput.equals("1")) {
-                apple.viewHistory();
-            } else if (userInput.equals("2")) {
-                google.viewHistory();
-            } else if (userInput.equals("3")) {
-                nvidia.viewHistory();
-            } else if (userInput.equals("4")) {
-                amazon.viewHistory();
-            } else if (userInput.equals("5")) {
-                rivian.viewHistory();
-            } else if (userInput.equals("6")) {
-                tesla.viewHistory();
-            } else {
-                System.out.println("Invalid input");
-            }
+            stockList.get(Integer.valueOf(userInput)).viewHistory();
         }
     }
 
     private void handleNextDay() {
-        apple.getNewPrice(getPercentageChange());
-        google.getNewPrice(getPercentageChange());
-        nvidia.getNewPrice(getPercentageChange());
-        amazon.getNewPrice(getPercentageChange());
-        rivian.getNewPrice(getPercentageChange());
-        tesla.getNewPrice(getPercentageChange());
+        for (Stock s : stockList) {
+            s.getNewPrice(getPercentageChange());
+        }
     }
 
     private double getPercentageChange() {
