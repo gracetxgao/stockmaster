@@ -65,6 +65,7 @@ public class Profile {
         this.profit = this.profit.subtract(stock.getPrice());
         Transaction t = new Transaction(stock, stock.getPrice().negate(), amount);
         this.transactionHistory.addTransaction(t);
+        System.out.println("Bought " + amount + " shares of " + stock.getCompany() + " for $" + stock.getPrice());
     }
 
     // REQUIRES: user has enough shares of the stock they choose to sell
@@ -76,5 +77,6 @@ public class Profile {
         this.profit = this.profit.add(stock.getPrice());
         Transaction t = new Transaction(stock, stock.getPrice(), amount);
         this.transactionHistory.addTransaction(t);
+        System.out.println("Sold " + amount + " shares of " + stock.getCompany() + " for $" + stock.getPrice());
     }
 }

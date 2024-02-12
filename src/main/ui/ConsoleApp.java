@@ -47,26 +47,36 @@ public class ConsoleApp {
     // EFFECTS: starts app and processes user input
     private void start() {
         init();
-        System.out.println("Hi! Your current net worth is $" + profile.getNetWorth() + "CAD.\n");
-        System.out.println("Choose an option below to get started!");
+        showUserStatus();
+        showMarketStatus();
         while (!stop) {
             showOpeningOptions();
             userInput = input.nextLine().toLowerCase();
             handleOpeningOptions(userInput);
         }
+        System.out.println("\tNet worth: $" + profile.getNetWorth());
+        System.out.println("\tProfit: $" + profile.getProfit());
         System.out.println("Simulator ended.");
     }
 
-    // EFFECTS: shows current market status and user options
-    private void showOpeningOptions() {
-        System.out.println("Current user status (CAD):");
-        System.out.println("\tNet worth: " + profile.getNetWorth());
-        System.out.println("\tProfit: " + profile.getProfit());
-        System.out.println("\tShares owned: " + profile.getOwnedStocks());
-        System.out.println("Current stock prices (CAD):");
+    // EFFECTS: shows current market status
+    private void showMarketStatus() {
+        System.out.println("Current stock prices:");
         for (Stock s : stockList) {
-            System.out.println("\t" + s.getCompany() + " - " + s.getPrice());
+            System.out.println("\t" + s.getCompany() + " - $" + s.getPrice());
         }
+    }
+
+    // EFFECTS: shows current user status
+    private void showUserStatus() {
+        System.out.println("Current user status:");
+        System.out.println("\tNet worth: $" + profile.getNetWorth());
+        System.out.println("\tProfit: $" + profile.getProfit());
+        System.out.println("\tShares owned: " + profile.getOwnedStocks());
+    }
+
+    // EFFECTS: shows user options
+    private void showOpeningOptions() {
         System.out.println("Select from:");
         System.out.println("\t1 - buy stocks");
         System.out.println("\t2 - sell stocks");
@@ -83,10 +93,12 @@ public class ConsoleApp {
             showChooseStock();
             userInput = input.nextLine().toLowerCase();
             handleBuyStock(userInput);
+            showUserStatus();
         } else if (userInput.equals("2")) {
             showChooseStock();
             userInput = input.nextLine().toLowerCase();
             handleSellStock(userInput);
+            showUserStatus();
         } else if (userInput.equals("3")) {
             handleViewTransactionHistory();
         } else if (userInput.equals("4")) {
@@ -95,6 +107,7 @@ public class ConsoleApp {
             handleViewStockPriceHistory(userInput);
         } else if (userInput.equals("5")) {
             handleNextDay();
+            showMarketStatus();
         } else if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -105,7 +118,7 @@ public class ConsoleApp {
     private void showChooseStock() {
         System.out.println("Choose from:");
         for (int i = 0; i < stockList.size(); i++) {
-            System.out.println("\t" + i + " - " + stockList.get(i).getCompany());
+            System.out.println("\t" + i + " - " + stockList.get(i).getCompany() + ", " + stockList.get(i).getPrice());
         }
     }
 
@@ -124,6 +137,9 @@ public class ConsoleApp {
                 profile.changeOwnedStocks(chosenStock, amount);
             }
         }
+        showContinue();
+        userInput = input.nextLine().toLowerCase();
+        handleContinue(userInput);
     }
 
     private void handleSellStock(String userInput) {
@@ -140,6 +156,9 @@ public class ConsoleApp {
                 profile.changeOwnedStocks(chosenStock, amount);
             }
         }
+        showContinue();
+        userInput = input.nextLine().toLowerCase();
+        handleContinue(userInput);
     }
 
     private void showChooseAmount() {
@@ -165,11 +184,21 @@ public class ConsoleApp {
     }
 
     private double getPercentageChange() {
-        double change = Math.random();
-        if (Math.round(change * 100) % 2 == 1) {
+        double change = Math.random() / 10;
+        if (Math.round(change * 1000) % 2 == 1) {
             change = - change;
         }
         return change;
+    }
+
+    private void showContinue() {
+        System.out.println("Continue? (y/n)");
+    }
+
+    private void handleContinue(String userInput) {
+        if (userInput.equals("q")) {
+            stop = true;
+        }
     }
 
 }
