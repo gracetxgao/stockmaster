@@ -35,6 +35,10 @@ public class Profile {
         return this.ownedStocks;
     }
 
+    public TransactionHistory getTransactionHistory() {
+        return this.transactionHistory;
+    }
+
     // MODIFIES: this
     // EFFECTS: edits number of shares owned of a stock
     public void changeOwnedStocks(Stock stock, int amount) {
@@ -61,11 +65,13 @@ public class Profile {
     // EFFECTS: subtracts price from net worth and profit and adds transaction to history
     //          (negative price represents buying)
     public void buyStock(Stock stock, int amount) {
-        this.netWorth = this.netWorth.subtract(stock.getPrice());
-        this.profit = this.profit.subtract(stock.getPrice());
+        this.netWorth = this.netWorth.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+        this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
         Transaction t = new Transaction(stock, stock.getPrice().negate(), amount);
         this.transactionHistory.addTransaction(t);
-        System.out.println("Bought " + amount + " shares of " + stock.getCompany() + " for $" + stock.getPrice());
+        String company = stock.getCompany();
+        BigDecimal price = stock.getPrice();
+        System.out.println("Bought " + amount + " shares of " + company + " for $" + price + " each");
     }
 
     // REQUIRES: user has enough shares of the stock they choose to sell

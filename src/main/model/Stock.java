@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // represents a stock that has a company name, current price, and price history
-public abstract class Stock {
+public class Stock {
 
     private String company;
     private BigDecimal price;

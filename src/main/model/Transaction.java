@@ -8,7 +8,7 @@ public class Transaction {
     private BigDecimal price;
     private int amount;
 
-    // EFFECTS: constructs a transaction with given stock, price, and amount
+    // EFFECTS: constructs a transaction with given stock, price, and amount of shares bought
     public Transaction(Stock stock, BigDecimal price, int amount) {
         this.stock = stock;
         this.price = price;

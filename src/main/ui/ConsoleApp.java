@@ -187,7 +187,8 @@ public class ConsoleApp {
         }
     }
 
-    // EFFECTS: generates value for percentage change
+    // EFFECTS: generates value for percentage change (as decimal, eg 0.01)
+    //          if value is odd, turn negative (arbitrary choice so that value does not only grow)
     private double getPercentageChange() {
         double change = Math.random() / 10;
         if (Math.round(change * 1000) % 2 == 1) {

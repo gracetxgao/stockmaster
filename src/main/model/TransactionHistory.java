@@ -19,4 +19,8 @@ public class TransactionHistory {
     public List<Transaction> getTransactionHistory() {
         return this.transactionHistory;
     }
+
+    public int getTransactionHistorySize() {
+        return this.transactionHistory.size();
+    }
 }
