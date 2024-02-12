@@ -71,9 +71,9 @@ public class ProfileTest {
     @Test
     void testBuyStock() {
         p1.buyStock(s3, 5);
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(50);
+        BigDecimal expectedFunds = BigDecimal.valueOf(50);
         BigDecimal expectedProfit = BigDecimal.valueOf(50).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(1, p1.getTransactionHistory().getTransactionHistorySize());
     }
@@ -82,9 +82,9 @@ public class ProfileTest {
     void testBuyStockNotEnough() {
         p1.buyStock(s1, 1);
         System.out.println("Insufficient funds");
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(100);
+        BigDecimal expectedFunds = BigDecimal.valueOf(100);
         BigDecimal expectedProfit = BigDecimal.valueOf(0).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(0, p1.getTransactionHistory().getTransactionHistorySize());
     }
@@ -93,9 +93,9 @@ public class ProfileTest {
     void testBuyStockMultiple() {
         p1.buyStock(s3, 5);
         p1.buyStock(s3, 3);
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(20);
+        BigDecimal expectedFunds = BigDecimal.valueOf(20);
         BigDecimal expectedProfit = BigDecimal.valueOf(80).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(2, p1.getTransactionHistory().getTransactionHistorySize());
     }
@@ -103,10 +103,10 @@ public class ProfileTest {
     @Test
     void testSellStock() {
         p1.buyStock(s3, 5);
-        p1.sellStock(s3, 1);
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(60);
+        p1.sellStock(s3, -1);
+        BigDecimal expectedFunds = BigDecimal.valueOf(60);
         BigDecimal expectedProfit = BigDecimal.valueOf(40).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(2, p1.getTransactionHistory().getTransactionHistorySize());
     }
@@ -114,11 +114,11 @@ public class ProfileTest {
     @Test
     void testSellStockNotEnough() {
         p1.buyStock(s3, 5);
-        p1.sellStock(s3, 6);
+        p1.sellStock(s3, -6);
         System.out.println("Not enough owned shares");
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(50);
+        BigDecimal expectedFunds = BigDecimal.valueOf(50);
         BigDecimal expectedProfit = BigDecimal.valueOf(50).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(1, p1.getTransactionHistory().getTransactionHistorySize());
     }
@@ -127,11 +127,11 @@ public class ProfileTest {
     void testSellStockMultiple() {
         p1.buyStock(s3, 5);
         p1.buyStock(s3, 3);
-        p1.sellStock(s3, 1);
-        p1.sellStock(s3, 1);
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(40);
+        p1.sellStock(s3, -1);
+        p1.sellStock(s3, -1);
+        BigDecimal expectedFunds = BigDecimal.valueOf(40);
         BigDecimal expectedProfit = BigDecimal.valueOf(60).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(4, p1.getTransactionHistory().getTransactionHistorySize());
     }
@@ -141,11 +141,11 @@ public class ProfileTest {
         p1.buyStock(s3, 5);
         p1.buyStock(s3, 3);
         p1.buyStock(s3, 2);
-        p1.sellStock(s3, 1);
-        p1.sellStock(s3, 1);
-        BigDecimal expectedNetWorth = BigDecimal.valueOf(20);
+        p1.sellStock(s3, -1);
+        p1.sellStock(s3, -1);
+        BigDecimal expectedFunds = BigDecimal.valueOf(20);
         BigDecimal expectedProfit = BigDecimal.valueOf(80).negate();
-        assertEquals(expectedNetWorth, p1.getFunds());
+        assertEquals(expectedFunds, p1.getFunds());
         assertEquals(expectedProfit, p1.getProfit());
         assertEquals(5, p1.getTransactionHistory().getTransactionHistorySize());
     }

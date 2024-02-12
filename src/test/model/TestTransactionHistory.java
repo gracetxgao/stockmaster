@@ -51,7 +51,7 @@ public class TestTransactionHistory {
         List<String> expectedOutput = new ArrayList<String>();
         expectedOutput.add("Bought " + amount + " shares of MSFT for $" + price + " each");
         expectedOutput.add("Bought " + amount + " shares of MSFT for $" + price + " each");
-        expectedOutput.add("Sold " +  amount + " shares of MSFT for $" + price.negate() + " each");
+        expectedOutput.add("Sold " +  amount + " shares of MSFT for $" + price + " each");
         assertEquals(expectedOutput, th.getTransactionHistory());
         assertEquals(3, th.getTransactionHistorySize());
     }
