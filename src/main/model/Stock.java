@@ -30,8 +30,8 @@ public class Stock {
     }
 
     // EFFECTS: prints price history
-    public void viewHistory() {
-        System.out.println(priceHistory);
+    public List<BigDecimal> viewHistory() {
+        return this.priceHistory;
     }
 
     public BigDecimal getPrice() {

@@ -22,6 +22,15 @@ public class StockTest {
     }
 
     @Test
+    void testViewHistory() {
+        assertEquals(0, s1.viewHistory().size());
+        s1.getNewPrice(0.01);
+        s1.getNewPrice(0.01);
+        s1.getNewPrice(0.01);
+        assertEquals(3, s1.viewHistory().size());
+    }
+
+    @Test
     void testGetNewPriceIncrease() {
         s1.getNewPrice(0.1);
         BigDecimal expected = BigDecimal.valueOf(456.5).setScale(2, BigDecimal.ROUND_HALF_EVEN);

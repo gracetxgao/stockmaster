@@ -47,16 +47,8 @@ public class Profile {
 
     // EFFECTS: prints transaction history
     public void viewTransactionHistory() {
-        for (Transaction t : transactionHistory.getTransactionHistory()) {
-            int amt = t.getAmount();
-            String company = t.getStock().getCompany();
-            BigDecimal price = t.getPrice();
-            BigDecimal sellPrice = price.multiply(BigDecimal.valueOf(-1));
-            if (price.compareTo(BigDecimal.valueOf(0)) == -1) {
-                System.out.println("Bought " + amt + " shares of " + company + " for $" + sellPrice + " each");
-            } else {
-                System.out.println("Sold " + amt + " shares of " + company + " for $" + price + " each");
-            }
+        for (String s : transactionHistory.getTransactionHistory()) {
+            System.out.println(s);
         }
     }
 

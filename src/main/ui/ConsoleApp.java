@@ -164,7 +164,7 @@ public class ConsoleApp {
         if (userInput.equals("q")) {
             stop = true;
         } else {
-            stockList.get(Integer.valueOf(userInput)).viewHistory();
+            System.out.println(stockList.get(Integer.valueOf(userInput)).viewHistory());
         }
     }
 

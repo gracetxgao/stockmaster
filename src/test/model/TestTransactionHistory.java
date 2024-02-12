@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +36,20 @@ public class TestTransactionHistory {
     void testAddTransactionTwice() {
         th.addTransaction(t1);
         th.addTransaction(t1);
+        assertEquals(2, th.getTransactionHistorySize());
+    }
+
+    @Test
+    void testGetTransactionHistory() {
+        th.addTransaction(t1);
+        th.addTransaction(t1);
+        int amount = t1.getAmount();
+        String company = t1.getStock().getCompany();
+        BigDecimal price = t1.getPrice();
+        List<String> expectedOutput = new ArrayList<String>();
+        expectedOutput.add("Sold " + amount + " shares of " + company + " for $" + price + " each");
+        expectedOutput.add("Sold " + amount + " shares of " + company + " for $" + price + " each");
+        assertEquals(expectedOutput, th.getTransactionHistory());
         assertEquals(2, th.getTransactionHistorySize());
     }
 }
