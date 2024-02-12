@@ -1,8 +1,5 @@
 package ui;
 
-import model.BearList;
-import model.SquirrelList;
-
 import java.util.Scanner;
 
 public class ConsoleApp {
@@ -108,6 +105,7 @@ public class ConsoleApp {
                     bearList.addAnimal();
                 }
             }
+            System.out.println(amount + " added");
         }
     }
 
@@ -124,6 +122,7 @@ public class ConsoleApp {
                     bearList.removeAnimal();
                 }
             }
+            System.out.println(amount + " removed");
         }
     }
 
