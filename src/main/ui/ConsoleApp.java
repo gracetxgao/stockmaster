@@ -130,13 +130,7 @@ public class ConsoleApp {
         } else {
             showChooseAmount();
             int amount = Integer.parseInt(input.nextLine());
-            BigDecimal cost = chosenStock.getPrice().multiply(BigDecimal.valueOf(amount));
-            if (profile.getNetWorth().compareTo(cost) == -1) {
-                System.out.println("Insufficient funds");
-            } else {
-                profile.buyStock(chosenStock, amount);
-                profile.changeOwnedStocks(chosenStock, amount);
-            }
+            profile.buyStock(chosenStock, amount);
         }
         showContinue();
         userInput = input.nextLine().toLowerCase();
@@ -152,12 +146,7 @@ public class ConsoleApp {
         } else {
             showChooseAmount();
             int amount = Integer.parseInt(input.nextLine());
-            if (profile.getOwnedStocks().get(chosenStock.getCompany()) < amount) {
-                System.out.println("Not enough owned shares");
-            } else {
-                profile.sellStock(chosenStock, amount);
-                profile.changeOwnedStocks(chosenStock, amount);
-            }
+            profile.sellStock(chosenStock, amount);
         }
         showContinue();
         userInput = input.nextLine().toLowerCase();

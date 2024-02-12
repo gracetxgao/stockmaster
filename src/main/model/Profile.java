@@ -52,37 +52,49 @@ public class Profile {
             String company = t.getStock().getCompany();
             BigDecimal price = t.getPrice();
             BigDecimal sellPrice = price.multiply(BigDecimal.valueOf(-1));
-            if (price.compareTo(BigDecimal.valueOf(0)) == 1) {
-                System.out.println("Bought " + amt + " shares of " + company + " for $" + price);
+            if (price.compareTo(BigDecimal.valueOf(0)) == -1) {
+                System.out.println("Bought " + amt + " shares of " + company + " for $" + sellPrice + " each");
             } else {
-                System.out.println("Sold " + amt + " shares of " + company + " for $" + sellPrice);
+                System.out.println("Sold " + amt + " shares of " + company + " for $" + price + " each");
             }
         }
     }
 
-    // REQUIRES: user's net worth is more than the stock price
     // MODIFIES: this
-    // EFFECTS: subtracts price from net worth and profit and adds transaction to history
-    //          (negative price represents buying)
+    // EFFECTS: if user has enough money, subtracts price from net worth and profit, adds transaction to history,
+    //          adds shares to owned stock
     public void buyStock(Stock stock, int amount) {
-        this.netWorth = this.netWorth.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
-        this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
-        Transaction t = new Transaction(stock, stock.getPrice().negate(), amount);
-        this.transactionHistory.addTransaction(t);
-        String company = stock.getCompany();
-        BigDecimal price = stock.getPrice();
-        System.out.println("Bought " + amount + " shares of " + company + " for $" + price + " each");
+        BigDecimal cost = stock.getPrice().multiply(BigDecimal.valueOf(amount));
+        if (this.netWorth.compareTo(cost) == -1) {
+            System.out.println("Insufficient funds");
+        } else {
+            this.netWorth = this.netWorth.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            Transaction t = new Transaction(stock, stock.getPrice().negate(), amount);
+            this.transactionHistory.addTransaction(t);
+            String company = stock.getCompany();
+            BigDecimal price = stock.getPrice();
+            System.out.println("Bought " + amount + " shares of " + company + " for $" + price + " each");
+
+            changeOwnedStocks(stock, amount);
+        }
     }
 
-    // REQUIRES: user has enough shares of the stock they choose to sell
     // MODIFIES: this
-    // EFFECTS: adds price to net worth and profit and adds transaction to history
-    //          (positive price represents selling)
+    // EFFECTS: if user owns enough shares, adds price to net worth and profit, adds transaction to history,
+    //          removes shares from owned stock
     public void sellStock(Stock stock, int amount) {
-        this.netWorth = this.netWorth.add(stock.getPrice());
-        this.profit = this.profit.add(stock.getPrice());
-        Transaction t = new Transaction(stock, stock.getPrice(), amount);
-        this.transactionHistory.addTransaction(t);
-        System.out.println("Sold " + amount + " shares of " + stock.getCompany() + " for $" + stock.getPrice());
+        if (ownedStocks.get(stock.getCompany()) < amount) {
+            System.out.println("Not enough owned shares");
+        } else {
+            this.netWorth = this.netWorth.add(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            this.profit = this.profit.add(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
+            Transaction t = new Transaction(stock, stock.getPrice(), amount);
+            this.transactionHistory.addTransaction(t);
+            String company = stock.getCompany();
+            BigDecimal price = stock.getPrice();
+            System.out.println("Sold " + amount + " shares of " + company + " for $" + price + " each");
+            changeOwnedStocks(stock, -amount);
+        }
     }
 }
