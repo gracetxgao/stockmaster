@@ -1,4 +1,7 @@
 package model;
 
-public class Nvidia {
+public class Nvidia extends Stock {
+    public Nvidia(String company, int price) {
+        super(company, price);
+    }
 }

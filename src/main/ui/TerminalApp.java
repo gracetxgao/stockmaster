@@ -1,10 +1,8 @@
 package ui;
 
-import model.Apple;
-import model.Google;
-import model.Profile;
-import model.Stock;
+import model.*;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TerminalApp {
@@ -12,30 +10,35 @@ public class TerminalApp {
     private Profile profile;
     private Boolean stop;
     private String userInput;
+    private Random rand;
 
     private Stock apple;
     private Stock google;
     private Stock nvidia;
-    private Stock rivian;
     private Stock amazon;
+    private Stock rivian;
     private Stock tesla;
 
     public TerminalApp() {
         start();
     }
 
-    private void init(String name) {
-        profile = new Profile(name);
+    private void init() {
+        profile = new Profile("name");
+        stop = false;
         input = new Scanner(System.in);
+        rand = new Random();
         apple = new Apple("AAPL", 150);
-        apple = new Google("GOOG", 125);
+        google = new Google("GOOG", 125);
+        nvidia = new Nvidia("NVDA", 720);
+        amazon = new Amazon("AMZN", 175);
+        rivian = new Rivian("RIVN", 20);
+        tesla = new Tesla("TSLA", 30);
         input.useDelimiter("\n");
     }
 
     private void start() {
-        System.out.println("Welcome to the stock market simulator! What's your name?");
-        userInput = input.nextLine();
-        init(userInput);
+        init();
         System.out.println("Hi " + profile.getName() + "! Your current net worth is " + profile.getNetWorth() + ".\n");
         System.out.println("Choose an option below to get started!");
         while (!stop) {
@@ -47,6 +50,13 @@ public class TerminalApp {
     }
 
     private void showOpeningOptions() {
+        System.out.println("Current prices:\n");
+        System.out.println("\tApple - " + apple.getPrice());
+        System.out.println("\tGoogle - " + google.getPrice());
+        System.out.println("\tNvidia - " + nvidia.getPrice());
+        System.out.println("\tAmazon - " + amazon.getPrice());
+        System.out.println("\tRivian - " + rivian.getPrice());
+        System.out.println("\tTesla - " + tesla.getPrice());
         System.out.println("Select from:");
         System.out.println("\t1 - buy stocks");
         System.out.println("\t2 - sell stocks");
@@ -94,20 +104,95 @@ public class TerminalApp {
             stop = true;
         } else {
             showChooseAmount();
-            int amount = Integer.valueOf(input.nextLine());
+            int amount = Integer.parseInt(input.nextLine());
             for (int i = 0; i < amount; i++) {
                 if (userInput.equals("1")) {
                     profile.buyStock(apple);
                 } else if (userInput.equals("2")) {
-                    profile.buyStock(Google);
+                    profile.buyStock(google);
+                } else if (userInput.equals("3")) {
+                    profile.buyStock(nvidia);
+                } else if (userInput.equals("4")) {
+                    profile.buyStock(amazon);
+                } else if (userInput.equals("5")) {
+                    profile.buyStock(rivian);
+                } else if (userInput.equals("6")) {
+                    profile.buyStock(tesla);
+                } else {
+                    System.out.println("Invalid input");
                 }
             }
-            System.out.println(amount + " added");
+        }
+    }
+
+    private void handleSellStock(String userInput) {
+        if (userInput.equals("q")) {
+            stop = true;
+        } else {
+            showChooseAmount();
+            int amount = Integer.parseInt(input.nextLine());
+            for (int i = 0; i < amount; i++) {
+                if (userInput.equals("1")) {
+                    profile.sellStock(apple);
+                } else if (userInput.equals("2")) {
+                    profile.sellStock(google);
+                } else if (userInput.equals("3")) {
+                    profile.sellStock(nvidia);
+                } else if (userInput.equals("4")) {
+                    profile.sellStock(amazon);
+                } else if (userInput.equals("5")) {
+                    profile.sellStock(rivian);
+                } else if (userInput.equals("6")) {
+                    profile.sellStock(tesla);
+                } else {
+                    System.out.println("Invalid input");
+                }
+            }
         }
     }
 
     private void showChooseAmount() {
         System.out.println("\nenter amount:");
+    }
+
+    private void handleViewTransactionHistory() {
+        profile.viewTransactionHistory();
+    }
+
+    private void handleViewStockPriceHistory(String userInput) {
+        if (userInput.equals("q")) {
+            stop = true;
+        } else {
+            showChooseAmount();
+            int amount = Integer.parseInt(input.nextLine());
+            for (int i = 0; i < amount; i++) {
+                if (userInput.equals("1")) {
+                    apple.viewHistory();
+                } else if (userInput.equals("2")) {
+                    google.viewHistory();
+                } else if (userInput.equals("3")) {
+                    nvidia.viewHistory();
+                } else if (userInput.equals("4")) {
+                    amazon.viewHistory();
+                } else if (userInput.equals("5")) {
+                    rivian.viewHistory();
+                } else if (userInput.equals("6")) {
+                    tesla.viewHistory();
+                } else {
+                    System.out.println("Invalid input");
+                }
+            }
+        }
+    }
+
+    private void handleNextDay() {
+        int change = rand.nextInt(100);
+        apple.getNewPrice(change);
+        google.getNewPrice(change);
+        nvidia.getNewPrice(change);
+        amazon.getNewPrice(change);
+        rivian.getNewPrice(change);
+        tesla.getNewPrice(change);
     }
 
 }
