@@ -17,6 +17,7 @@ public class TransactionHistory {
         transactionHistory.add(t);
     }
 
+    // EFFECTS: returns list of strings summarizing all transactions
     public List<String> getTransactionHistory() {
         List<String> outputHistory = new ArrayList<String>();
         for (Transaction t : transactionHistory) {
@@ -29,7 +30,6 @@ public class TransactionHistory {
                 outputHistory.add("Bought " + amt + " shares of " + company + " for $" + price + " each");
             }
         }
-
         return outputHistory;
     }
 
