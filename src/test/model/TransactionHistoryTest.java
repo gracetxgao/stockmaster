@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestTransactionHistory {
+public class TransactionHistoryTest {
     private TransactionHistory th;
     private Transaction t1;
     private Transaction t2;
