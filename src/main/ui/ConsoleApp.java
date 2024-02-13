@@ -32,12 +32,12 @@ public class ConsoleApp {
         stop = false;
         input = new Scanner(System.in);
         rand = new Random();
-        apple = new Apple("AAPL", BigDecimal.valueOf(150.00));
-        google = new Google("GOOG", BigDecimal.valueOf(125.00));
-        nvidia = new Nvidia("NVDA", BigDecimal.valueOf(720.00));
-        amazon = new Amazon("AMZN", BigDecimal.valueOf(175.00));
-        rivian = new Rivian("RIVN", BigDecimal.valueOf(20.00));
-        tesla = new Tesla("TSLA", BigDecimal.valueOf(30.00));
+        apple = new Stock("AAPL", BigDecimal.valueOf(150.00));
+        google = new Stock("GOOG", BigDecimal.valueOf(125.00));
+        nvidia = new Stock("NVDA", BigDecimal.valueOf(720.00));
+        amazon = new Stock("AMZN", BigDecimal.valueOf(175.00));
+        rivian = new Stock("RIVN", BigDecimal.valueOf(20.00));
+        tesla = new Stock("TSLA", BigDecimal.valueOf(30.00));
         stockList = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
         profile = new Profile(stockList);
         input.useDelimiter("\n");
