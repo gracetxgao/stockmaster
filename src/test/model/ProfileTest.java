@@ -14,15 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProfileTest {
     private Profile p1;
     private Stock s1;
-    private Stock s2;
     private Stock s3;
+    private Transaction t1;
+    private TransactionHistory th;
     private List<Stock> stockList;
 
     @BeforeEach
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
-        s2 = new Stock("DIS", BigDecimal.valueOf(10));
         s3 = new Stock("BA", BigDecimal.valueOf(10));
+        t1 = new Transaction(s1, BigDecimal.valueOf(415), 1);
+        th = new TransactionHistory();
+        th.addTransaction(t1);
         stockList = new ArrayList<>(Arrays.asList(s1, s3));
         p1 = new Profile(stockList);
     }
@@ -37,6 +40,14 @@ public class ProfileTest {
         }
         assertEquals(expectedOwnedStocks, p1.getOwnedStocks());
         assertEquals(0, p1.getTransactionHistory().getTransactionHistorySize());
+    }
+
+    @Test
+    void testViewTransactionHistory() {
+        int amount = t1.getAmount();
+        BigDecimal price = t1.getPrice();
+        System.out.println("Bought " + amount + " shares of MSFT for $" + price + " each");
+        p1.viewTransactionHistory();
     }
 
     @Test
