@@ -2,7 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 
-// represents a transaction given the stock exchanged and its price, amount positive for buying and negative for selling
+// represents a transaction given the stock exchanged and price (amount positive for buying and negative for selling)
 public class Transaction {
     private Stock stock;
     private BigDecimal price;

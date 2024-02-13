@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
-// represents a user profile with a net worth, profit, and transaction history
+// represents a user profile with a fund amount, profit, transaction history, and owned stocks
 public class Profile {
     private BigDecimal funds;
     private BigDecimal profit;

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+// represents a list of transactions the user has made
 public class TransactionHistory {
     private List<Transaction> transactionHistory;
 
@@ -33,6 +34,7 @@ public class TransactionHistory {
         return outputHistory;
     }
 
+    // EFFECTS: returns size of transaction history list
     public int getTransactionHistorySize() {
         return this.transactionHistory.size();
     }
