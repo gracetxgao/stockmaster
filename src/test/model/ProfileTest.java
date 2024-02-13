@@ -43,14 +43,6 @@ public class ProfileTest {
     }
 
     @Test
-    void testViewTransactionHistory() {
-        int amount = t1.getAmount();
-        BigDecimal price = t1.getPrice();
-        System.out.println("Bought " + amount + " shares of MSFT for $" + price + " each");
-        p1.viewTransactionHistory();
-    }
-
-    @Test
     void testChangeOwnedStocks() {
         p1.changeOwnedStocks(s1, 5);
         assertEquals(5, p1.getOwnedStocks().get(s1.getCompany()));

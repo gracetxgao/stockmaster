@@ -155,7 +155,9 @@ public class ConsoleApp {
 
     // EFFECTS: shows user transaction history
     private void handleViewTransactionHistory() {
-        profile.viewTransactionHistory();
+        for (String s : profile.getTransactionHistory().getTransactionHistory()) {
+            System.out.println(s);
+        }
     }
 
     // MODIFIES: this

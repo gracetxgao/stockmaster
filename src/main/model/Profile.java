@@ -45,13 +45,6 @@ public class Profile {
         this.ownedStocks.put(stock.getCompany(), ownedStocks.get(stock.getCompany()) + amount);
     }
 
-    // EFFECTS: prints transaction history
-    public void viewTransactionHistory() {
-        for (String s : transactionHistory.getTransactionHistory()) {
-            System.out.println(s);
-        }
-    }
-
     // MODIFIES: this
     // EFFECTS: if user has enough money, subtracts price from funds, adds transaction to history,
     //          adds shares to owned stock
