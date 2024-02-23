@@ -26,3 +26,5 @@ each stock and the user's profit.
 * Users can move time forward to generate new prices
 * Users can view statistics about the growth trends of a particular stock, bond, or mutual fund
 * Users can view statistics about their net worth, profit, and growth trends
+* Users can choose to save the state of all simulation components at any point
+* Users can reload the simulation from when it was last saved and continue from that point
