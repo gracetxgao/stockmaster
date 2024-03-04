@@ -23,11 +23,11 @@ public class StockTest {
 
     @Test
     void testViewHistory() {
-        assertEquals(0, s1.viewHistory().size());
+        assertEquals(1, s1.viewHistory().size());
         s1.getNewPrice(0.01);
         s1.getNewPrice(0.01);
         s1.getNewPrice(0.01);
-        assertEquals(3, s1.viewHistory().size());
+        assertEquals(4, s1.viewHistory().size());
     }
 
     @Test

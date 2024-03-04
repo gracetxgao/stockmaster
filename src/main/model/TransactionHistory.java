@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a list of transactions the user has made
-public class TransactionHistory {
+public class TransactionHistory implements Writable {
     private List<Transaction> transactionHistory;
 
     public TransactionHistory() {
@@ -37,5 +40,10 @@ public class TransactionHistory {
     // EFFECTS: returns size of transaction history list
     public int getTransactionHistorySize() {
         return this.transactionHistory.size();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

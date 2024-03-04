@@ -10,15 +10,7 @@ public class ConsoleApp {
     private Scanner input;
     private Profile profile;
     private Boolean stop;
-    private String userInput;
-    private Random rand;
 
-    private Stock apple;
-    private Stock google;
-    private Stock nvidia;
-    private Stock amazon;
-    private Stock rivian;
-    private Stock tesla;
     private List<Stock> stockList;
 
     // EFFECTS: runs console app
@@ -31,13 +23,12 @@ public class ConsoleApp {
     private void init() {
         stop = false;
         input = new Scanner(System.in);
-        rand = new Random();
-        apple = new Stock("AAPL", BigDecimal.valueOf(150.00));
-        google = new Stock("GOOG", BigDecimal.valueOf(125.00));
-        nvidia = new Stock("NVDA", BigDecimal.valueOf(720.00));
-        amazon = new Stock("AMZN", BigDecimal.valueOf(175.00));
-        rivian = new Stock("RIVN", BigDecimal.valueOf(20.00));
-        tesla = new Stock("TSLA", BigDecimal.valueOf(30.00));
+        Stock apple = new Stock("AAPL", BigDecimal.valueOf(150.00));
+        Stock google = new Stock("GOOG", BigDecimal.valueOf(125.00));
+        Stock nvidia = new Stock("NVDA", BigDecimal.valueOf(720.00));
+        Stock amazon = new Stock("AMZN", BigDecimal.valueOf(175.00));
+        Stock rivian = new Stock("RIVN", BigDecimal.valueOf(20.00));
+        Stock tesla = new Stock("TSLA", BigDecimal.valueOf(30.00));
         stockList = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
         profile = new Profile(stockList);
         input.useDelimiter("\n");
@@ -51,11 +42,12 @@ public class ConsoleApp {
         showMarketStatus();
         while (!stop) {
             showOpeningOptions();
-            userInput = input.nextLine().toLowerCase();
+            String userInput = input.nextLine().toLowerCase();
             handleOpeningOptions(userInput);
         }
         System.out.println("\tFunds: $" + profile.getFunds());
         System.out.println("\tProfit: $" + profile.getProfit());
+        System.out.println("\tNet Worth: $" + profile.getNetWorth());
         System.out.println("Simulator ended.");
     }
 
@@ -72,6 +64,7 @@ public class ConsoleApp {
         System.out.println("Current user status:");
         System.out.println("\tFunds: $" + profile.getFunds());
         System.out.println("\tProfit: $" + profile.getProfit());
+        System.out.println("\tNet Worth: $" + profile.getNetWorth());
         System.out.println("\tShares owned: " + profile.getOwnedStocks());
     }
 
@@ -83,6 +76,7 @@ public class ConsoleApp {
         System.out.println("\t3 - view transaction history");
         System.out.println("\t4 - view stock price history");
         System.out.println("\t5 - advance to next day");
+        System.out.println("\t6 - view profile information");
         System.out.println("\tq - quit");
     }
 
@@ -93,12 +87,10 @@ public class ConsoleApp {
             showChooseStock();
             userInput = input.nextLine().toLowerCase();
             handleBuyStock(userInput);
-            showUserStatus();
         } else if (userInput.equals("2")) {
             showChooseStock();
             userInput = input.nextLine().toLowerCase();
             handleSellStock(userInput);
-            showUserStatus();
         } else if (userInput.equals("3")) {
             handleViewTransactionHistory();
         } else if (userInput.equals("4")) {
@@ -108,6 +100,8 @@ public class ConsoleApp {
         } else if (userInput.equals("5")) {
             handleNextDay();
             showMarketStatus();
+        } else if (userInput.equals("6")) {
+            showUserStatus();
         } else {
             stop = true;
         }
@@ -124,7 +118,7 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: allow user to purchase X amounts of the stock
     private void handleBuyStock(String userInput) {
-        Stock chosenStock = stockList.get(Integer.valueOf(userInput));
+        Stock chosenStock = stockList.get(Integer.parseInt(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -140,7 +134,7 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: allow user to sell X amounts of the stock
     private void handleSellStock(String userInput) {
-        Stock chosenStock = stockList.get(Integer.valueOf(userInput));
+        Stock chosenStock = stockList.get(Integer.parseInt(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -166,15 +160,22 @@ public class ConsoleApp {
         if (userInput.equals("q")) {
             stop = true;
         } else {
-            System.out.println(stockList.get(Integer.valueOf(userInput)).viewHistory());
+            System.out.println(stockList.get(Integer.parseInt(userInput)).viewHistory());
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: generates new prices for each stock
+    // EFFECTS: generates new prices for each stock and updates net worth accordingly
     private void handleNextDay() {
         for (Stock s : stockList) {
+            BigDecimal prevPrice = s.getPrice();
             s.getNewPrice(getPercentageChange());
+            BigDecimal newPrice = s.getPrice();
+            BigDecimal change = newPrice.subtract(prevPrice);
+            int amountOwned = profile.getOwnedStocks().get(s.getCompany());
+            for (int i = 0; i < amountOwned; i++) {
+                profile.changeNetWorth(change);
+            }
         }
     }
 

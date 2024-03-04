@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a stock that has a company name, current price, and price history
-public class Stock {
+public class Stock implements Writable {
 
     private String company;
     private BigDecimal price;
@@ -16,6 +19,7 @@ public class Stock {
         this.company = company;
         this.price = price;
         this.priceHistory = new ArrayList<BigDecimal>();
+        this.priceHistory.add(price);
     }
 
     // MODIFIES: this
@@ -40,5 +44,10 @@ public class Stock {
 
     public String getCompany() {
         return this.company;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

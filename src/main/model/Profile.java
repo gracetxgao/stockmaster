@@ -1,13 +1,17 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
 // represents a user profile with a fund amount, profit, transaction history, and owned stocks
-public class Profile {
+public class Profile implements Writable {
     private BigDecimal funds;
     private BigDecimal profit;
+    private BigDecimal netWorth;
     private TransactionHistory transactionHistory;
     private HashMap<String, Integer> ownedStocks;
 
@@ -16,6 +20,7 @@ public class Profile {
     public Profile(List<Stock> stockList) {
         this.funds = new BigDecimal(100);
         this.profit = new BigDecimal(0);
+        this.netWorth = new BigDecimal(100);
         this.transactionHistory = new TransactionHistory();
         this.ownedStocks = new HashMap<String, Integer>();
         for (Stock s : stockList) {
@@ -31,6 +36,10 @@ public class Profile {
         return this.profit;
     }
 
+    public BigDecimal getNetWorth() {
+        return this.netWorth;
+    }
+
     public HashMap<String, Integer> getOwnedStocks() {
         return this.ownedStocks;
     }
@@ -43,6 +52,12 @@ public class Profile {
     // EFFECTS: edits number of shares owned of a stock
     public void changeOwnedStocks(Stock stock, int amount) {
         this.ownedStocks.put(stock.getCompany(), ownedStocks.get(stock.getCompany()) + amount);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: edits net worth when new day
+    public void changeNetWorth(BigDecimal change) {
+        this.netWorth = netWorth.add(change);
     }
 
     // MODIFIES: this
@@ -81,5 +96,17 @@ public class Profile {
             System.out.println("Sold " + Math.abs(amount) + " shares of " + company + " for $" + price + " each");
             changeOwnedStocks(stock, amount);
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("funds", funds);
+        json.put("profit", profit);
+        json.put("net worth", netWorth);
+        json.put("transaction history", transactionHistory);
+        json.put("owned stocks", ownedStocks);
+
+        return json;
     }
 }
