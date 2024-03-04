@@ -1,17 +1,23 @@
 package ui;
 
 import model.*;
+//import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
 
 // Console based stock market simulator
 public class ConsoleApp {
     private Scanner input;
+    private static final String JSON_STORE_PROFILE = "./data/profile.json";
+    private static final String JSON_STORE_STOCKS = "./data/stocks.json";
     private Profile profile;
+    private List<Stock> stocks;
     private Boolean stop;
-
-    private List<Stock> stockList;
+    private JsonWriter jsonWriter;
+//    private JsonReader jsonReader;
 
     // EFFECTS: runs console app
     public ConsoleApp() {
@@ -29,9 +35,11 @@ public class ConsoleApp {
         Stock amazon = new Stock("AMZN", BigDecimal.valueOf(175.00));
         Stock rivian = new Stock("RIVN", BigDecimal.valueOf(20.00));
         Stock tesla = new Stock("TSLA", BigDecimal.valueOf(30.00));
-        stockList = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
-        profile = new Profile(stockList);
+        stocks = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
+        profile = new Profile(stocks);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE_PROFILE);
+//        jsonReader = new JsonReader();
     }
 
     // MODIFIES: this
@@ -54,7 +62,7 @@ public class ConsoleApp {
     // EFFECTS: shows current market status
     private void showMarketStatus() {
         System.out.println("Current stock prices:");
-        for (Stock s : stockList) {
+        for (Stock s : stocks) {
             System.out.println("\t" + s.getCompany() + " - $" + s.getPrice());
         }
     }
@@ -71,13 +79,15 @@ public class ConsoleApp {
     // EFFECTS: shows user options
     private void showOpeningOptions() {
         System.out.println("Select from:");
-        System.out.println("\t1 - buy stocks");
-        System.out.println("\t2 - sell stocks");
-        System.out.println("\t3 - view transaction history");
-        System.out.println("\t4 - view stock price history");
-        System.out.println("\t5 - advance to next day");
-        System.out.println("\t6 - view profile information");
-        System.out.println("\tq - quit");
+        System.out.println("\t1 - Buy stocks");
+        System.out.println("\t2 - Sell stocks");
+        System.out.println("\t3 - View transaction history");
+        System.out.println("\t4 - View stock price history");
+        System.out.println("\t5 - Advance to next day");
+        System.out.println("\t6 - View profile information");
+        System.out.println("\t7 - Save simulation status to file");
+        System.out.println("\t8 - Load simulation status from file");
+        System.out.println("\tq - Quit");
     }
 
     // MODIFIES: this
@@ -102,6 +112,8 @@ public class ConsoleApp {
             showMarketStatus();
         } else if (userInput.equals("6")) {
             showUserStatus();
+        } else if (userInput.equals("7")) {
+            saveStatus();
         } else {
             stop = true;
         }
@@ -110,15 +122,15 @@ public class ConsoleApp {
     // EFFECTS: displays stock options
     private void showChooseStock() {
         System.out.println("Choose from:");
-        for (int i = 0; i < stockList.size(); i++) {
-            System.out.println("\t" + i + " - " + stockList.get(i).getCompany() + ", " + stockList.get(i).getPrice());
+        for (int i = 0; i < stocks.size(); i++) {
+            System.out.println("\t" + i + " - " + stocks.get(i).getCompany() + ", " + stocks.get(i).getPrice());
         }
     }
 
     // MODIFIES: this
     // EFFECTS: allow user to purchase X amounts of the stock
     private void handleBuyStock(String userInput) {
-        Stock chosenStock = stockList.get(Integer.parseInt(userInput));
+        Stock chosenStock = stocks.get(Integer.parseInt(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -134,7 +146,7 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: allow user to sell X amounts of the stock
     private void handleSellStock(String userInput) {
-        Stock chosenStock = stockList.get(Integer.parseInt(userInput));
+        Stock chosenStock = stocks.get(Integer.parseInt(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -160,14 +172,14 @@ public class ConsoleApp {
         if (userInput.equals("q")) {
             stop = true;
         } else {
-            System.out.println(stockList.get(Integer.parseInt(userInput)).viewHistory());
+            System.out.println(stocks.get(Integer.parseInt(userInput)).viewHistory());
         }
     }
 
     // MODIFIES: this
     // EFFECTS: generates new prices for each stock and updates net worth accordingly
     private void handleNextDay() {
-        for (Stock s : stockList) {
+        for (Stock s : stocks) {
             BigDecimal prevPrice = s.getPrice();
             s.getNewPrice(getPercentageChange());
             BigDecimal newPrice = s.getPrice();
@@ -194,7 +206,7 @@ public class ConsoleApp {
     }
 
     private void showChooseAmount() {
-        System.out.println("enter amount:");
+        System.out.println("Enter amount:");
     }
 
     // MODIFIES: this
@@ -205,4 +217,23 @@ public class ConsoleApp {
         }
     }
 
+    // EFFECTS: saves profile and market status to file
+    private void saveStatus() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(profile);
+            jsonWriter.close();
+            System.out.println("Saved profile and market status to " + JSON_STORE_PROFILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_PROFILE);
+        }
+    }
+
+//    // MODIFIES: this
+//    // EFFECTS: loads profile and market status from file
+//    private void loadStatus() {
+//        profile = jsonReader.read(profile);
+//        stocks = jsonReader.read(stocks);
+//        System.out.println("Loaded profile and market status from " + JSON_STORE);
+//    }
 }

@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.math.BigDecimal;
 
 // represents a transaction given the stock exchanged and price (amount positive for buying and negative for selling)
-public class Transaction {
+public class Transaction implements Writable {
     private Stock stock;
     private BigDecimal price;
     private int amount;
@@ -25,5 +28,15 @@ public class Transaction {
 
     public int getAmount() {
         return this.amount;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("stock", stock);
+        json.put("price", price);
+        json.put("amount", amount);
+
+        return json;
     }
 }

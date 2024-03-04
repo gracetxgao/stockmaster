@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -44,6 +45,20 @@ public class TransactionHistory implements Writable {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("transaction history", transactionsToJson());
+
+        return json;
+    }
+
+    // EFFECTS: returns transactions in history as a JSON array
+    private JSONArray transactionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Transaction t : transactionHistory) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
     }
 }

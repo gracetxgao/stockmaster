@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -104,7 +105,7 @@ public class Profile implements Writable {
         json.put("funds", funds);
         json.put("profit", profit);
         json.put("net worth", netWorth);
-        json.put("transaction history", transactionHistory);
+        json.put("transaction history", transactionHistory.toJson());
         json.put("owned stocks", ownedStocks);
 
         return json;

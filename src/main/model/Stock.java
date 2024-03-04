@@ -48,6 +48,11 @@ public class Stock implements Writable {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("company", company);
+        json.put("price", price);
+        json.put("price history", priceHistory);
+
+        return json;
     }
 }
