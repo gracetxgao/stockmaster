@@ -95,12 +95,19 @@ public class ConsoleApp {
         System.out.println("Select from:");
         System.out.println("\t1 - Buy stocks");
         System.out.println("\t2 - Sell stocks");
-        System.out.println("\t3 - View transaction history");
-        System.out.println("\t4 - View stock price history");
-        System.out.println("\t5 - Advance to next day");
-        System.out.println("\t6 - View profile information");
-        System.out.println("\t7 - Save simulation status to file");
-        System.out.println("\t8 - Load simulation status from file");
+        System.out.println("\t3 - Advance to next day");
+        System.out.println("\t4 - View profile or market statistics");
+        System.out.println("\t5 - Save simulation status to file");
+        System.out.println("\t6 - Load simulation status from file");
+        System.out.println("\tq - Quit");
+    }
+
+    // EFFECTS: shows user options
+    private void showStatsOptions() {
+        System.out.println("Select from:");
+        System.out.println("\t1 - View transaction history");
+        System.out.println("\t2 - View stock price history");
+        System.out.println("\t3 - View profile information");
         System.out.println("\tq - Quit");
     }
 
@@ -116,20 +123,32 @@ public class ConsoleApp {
             userInput = input.nextLine().toLowerCase();
             handleSellStock(userInput);
         } else if (userInput.equals("3")) {
-            handleViewTransactionHistory();
+            handleNextDay();
+            showMarketStatus();
         } else if (userInput.equals("4")) {
+            showStatsOptions();
+            userInput = input.nextLine().toLowerCase();
+            handleStatisticsOptions(userInput);
+        } else if (userInput.equals("5")) {
+            saveStatus();
+        } else if (userInput.equals("6")) {
+            loadStatus();
+        } else {
+            stop = true;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handles user input for opening options
+    private void handleStatisticsOptions(String userInput) {
+        if (userInput.equals("1")) {
+            handleViewTransactionHistory();
+        } else if (userInput.equals("2")) {
             showChooseStock();
             userInput = input.nextLine().toLowerCase();
             handleViewStockPriceHistory(userInput);
-        } else if (userInput.equals("5")) {
-            handleNextDay();
-            showMarketStatus();
-        } else if (userInput.equals("6")) {
+        } else if (userInput.equals("3")) {
             showUserStatus();
-        } else if (userInput.equals("7")) {
-            saveStatus();
-        } else if (userInput.equals("8")) {
-            loadStatus();
         } else {
             stop = true;
         }
