@@ -16,32 +16,59 @@ public class ProfileTest {
     private Stock s1;
     private Stock s3;
     private Transaction t1;
-    private TransactionHistory th;
-    private StockList stocks;
+    private TransactionHistory th1;
+    private StockList stocks1;
+
+    private Profile p2;
+    private Transaction t2;
+    private TransactionHistory th2;
+    private HashMap<String, Integer> ownedStocks;
 
     @BeforeEach
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
         s3 = new Stock("BA", BigDecimal.valueOf(10));
         t1 = new Transaction(s1.getCompany(), BigDecimal.valueOf(415), 1);
-        th = new TransactionHistory();
-        th.addTransaction(t1);
-        stocks = new StockList();
-        stocks.addStock(s1);
-        stocks.addStock(s3);
-        p1 = new Profile(stocks);
+        th1 = new TransactionHistory();
+        th1.addTransaction(t1);
+        stocks1 = new StockList();
+        stocks1.addStock(s1);
+        stocks1.addStock(s3);
+        p1 = new Profile(stocks1);
+
+        t2 = new Transaction(s3.getCompany(), BigDecimal.valueOf(12), -2);
+        th2 = new TransactionHistory();
+        th2.addTransaction(t1);
+        th2.addTransaction(t2);
+        ownedStocks = new HashMap<String, Integer>();
+        ownedStocks.put(s1.getCompany(), 3);
+        ownedStocks.put(s3.getCompany(), 5);
+        p2 = new Profile(BigDecimal.valueOf(120), BigDecimal.valueOf(10), BigDecimal.valueOf(300), th2, ownedStocks);
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorOne() {
         assertEquals(BigDecimal.valueOf(100), p1.getFunds());
         assertEquals(BigDecimal.valueOf(0), p1.getProfit());
+        assertEquals(BigDecimal.valueOf(100), p1.getNetWorth());
         HashMap<String, Integer> expectedOwnedStocks = new HashMap<String, Integer>();
-        for (int i = 0; i < stocks.getSize(); i++) {
-            expectedOwnedStocks.put(stocks.getStock(i).getCompany(), 0);
+        for (int i = 0; i < stocks1.getSize(); i++) {
+            expectedOwnedStocks.put(stocks1.getStock(i).getCompany(), 0);
         }
         assertEquals(expectedOwnedStocks, p1.getOwnedStocks());
         assertEquals(0, p1.getTransactionHistory().getTransactionHistorySize());
+    }
+
+    @Test
+    void testConstructorTwo() {
+        assertEquals(BigDecimal.valueOf(120), p2.getFunds());
+        assertEquals(BigDecimal.valueOf(10), p2.getProfit());
+        assertEquals(BigDecimal.valueOf(300), p2.getNetWorth());
+        HashMap<String, Integer> expectedOwnedStocks = new HashMap<String, Integer>();
+        expectedOwnedStocks.put(s1.getCompany(), 3);
+        expectedOwnedStocks.put(s3.getCompany(), 5);
+        assertEquals(expectedOwnedStocks, p2.getOwnedStocks());
+        assertEquals(2, p2.getTransactionHistory().getTransactionHistorySize());
     }
 
     @Test
@@ -71,6 +98,13 @@ public class ProfileTest {
         p1.changeOwnedStocks(s1, -1);
         p1.changeOwnedStocks(s1, -2);
         assertEquals(5, p1.getOwnedStocks().get(s1.getCompany()));
+    }
+
+    @Test
+    void testChangeNetWorth() {
+        p2.changeNetWorth(BigDecimal.valueOf(10.07));
+        p2.changeNetWorth(BigDecimal.valueOf(-25));
+        assertEquals(BigDecimal.valueOf(285.07), p2.getNetWorth());
     }
 
     @Test

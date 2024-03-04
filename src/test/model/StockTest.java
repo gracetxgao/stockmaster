@@ -4,21 +4,37 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StockTest {
     private Stock s1;
+    private Stock s2;
 
     @BeforeEach
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
+        List<BigDecimal> priceHistory =
+                new ArrayList<>(Arrays.asList(BigDecimal.valueOf(205.01), BigDecimal.valueOf(197.54)));
+        s2 = new Stock("AAPL", BigDecimal.valueOf(200), priceHistory);
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorOne() {
         assertEquals("MSFT", s1.getCompany());
         assertEquals(BigDecimal.valueOf(415), s1.getPrice());
+    }
+
+    @Test
+    void testConstructorTwo() {
+        assertEquals("AAPL", s2.getCompany());
+        assertEquals(BigDecimal.valueOf(200), s2.getPrice());
+        List<BigDecimal> expectedPriceHistory =
+                new ArrayList<>(Arrays.asList(BigDecimal.valueOf(205.01), BigDecimal.valueOf(197.54)));
+        assertEquals(expectedPriceHistory, s2.viewHistory());
     }
 
     @Test

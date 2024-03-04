@@ -64,7 +64,7 @@ public class Profile implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: edits net worth when new day
+    // EFFECTS: edits net worth on day change
     public void changeNetWorth(BigDecimal change) {
         this.netWorth = netWorth.add(change);
     }
