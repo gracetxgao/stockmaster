@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Profile;
+import model.Stock;
+import model.StockList;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -28,6 +30,13 @@ public class JsonWriter {
     // EFFECTS: writes JSON representation of profile to file
     public void write(Profile p) {
         JSONObject json = p.toJson();
+        saveToFile(json.toString(TAB));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: writes JSON representation of stock list to file
+    public void write(StockList s) {
+        JSONObject json = s.toJson();
         saveToFile(json.toString(TAB));
     }
 

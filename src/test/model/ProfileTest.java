@@ -17,7 +17,7 @@ public class ProfileTest {
     private Stock s3;
     private Transaction t1;
     private TransactionHistory th;
-    private List<Stock> stockList;
+    private StockList stocks;
 
     @BeforeEach
     void setup() {
@@ -26,8 +26,10 @@ public class ProfileTest {
         t1 = new Transaction(s1, BigDecimal.valueOf(415), 1);
         th = new TransactionHistory();
         th.addTransaction(t1);
-        stockList = new ArrayList<>(Arrays.asList(s1, s3));
-        p1 = new Profile(stockList);
+        stocks = new StockList();
+        stocks.addStock(s1);
+        stocks.addStock(s3);
+        p1 = new Profile(stocks);
     }
 
     @Test
@@ -35,8 +37,8 @@ public class ProfileTest {
         assertEquals(BigDecimal.valueOf(100), p1.getFunds());
         assertEquals(BigDecimal.valueOf(0), p1.getProfit());
         HashMap<String, Integer> expectedOwnedStocks = new HashMap<String, Integer>();
-        for (Stock s : stockList) {
-            expectedOwnedStocks.put(s.getCompany(), 0);
+        for (int i = 0; i < stocks.getSize(); i++) {
+            expectedOwnedStocks.put(stocks.getStock(i).getCompany(), 0);
         }
         assertEquals(expectedOwnedStocks, p1.getOwnedStocks());
         assertEquals(0, p1.getTransactionHistory().getTransactionHistorySize());

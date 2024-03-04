@@ -14,9 +14,10 @@ public class ConsoleApp {
     private static final String JSON_STORE_PROFILE = "./data/profile.json";
     private static final String JSON_STORE_STOCKS = "./data/stocks.json";
     private Profile profile;
-    private List<Stock> stocks;
+    private StockList stocks;
     private Boolean stop;
-    private JsonWriter jsonWriter;
+    private JsonWriter jsonWriterProfile;
+    private JsonWriter jsonWriterStocks;
 //    private JsonReader jsonReader;
 
     // EFFECTS: runs console app
@@ -35,10 +36,17 @@ public class ConsoleApp {
         Stock amazon = new Stock("AMZN", BigDecimal.valueOf(175.00));
         Stock rivian = new Stock("RIVN", BigDecimal.valueOf(20.00));
         Stock tesla = new Stock("TSLA", BigDecimal.valueOf(30.00));
-        stocks = new ArrayList<>(Arrays.asList(apple, google, nvidia, amazon, rivian, tesla));
+        stocks = new StockList();
+        stocks.addStock(apple);
+        stocks.addStock(google);
+        stocks.addStock(nvidia);
+        stocks.addStock(amazon);
+        stocks.addStock(rivian);
+        stocks.addStock(tesla);
         profile = new Profile(stocks);
         input.useDelimiter("\n");
-        jsonWriter = new JsonWriter(JSON_STORE_PROFILE);
+        jsonWriterProfile = new JsonWriter(JSON_STORE_PROFILE);
+        jsonWriterStocks = new JsonWriter(JSON_STORE_STOCKS);
 //        jsonReader = new JsonReader();
     }
 
@@ -62,8 +70,10 @@ public class ConsoleApp {
     // EFFECTS: shows current market status
     private void showMarketStatus() {
         System.out.println("Current stock prices:");
-        for (Stock s : stocks) {
-            System.out.println("\t" + s.getCompany() + " - $" + s.getPrice());
+        for (int i = 0; i < stocks.getSize(); i++) {
+            String company = stocks.getStock(i).getCompany();
+            BigDecimal price = stocks.getStock(i).getPrice();
+            System.out.println("\t" + i + " - " + company + ", " + price);
         }
     }
 
@@ -122,15 +132,17 @@ public class ConsoleApp {
     // EFFECTS: displays stock options
     private void showChooseStock() {
         System.out.println("Choose from:");
-        for (int i = 0; i < stocks.size(); i++) {
-            System.out.println("\t" + i + " - " + stocks.get(i).getCompany() + ", " + stocks.get(i).getPrice());
+        for (int i = 0; i < stocks.getSize(); i++) {
+            String company = stocks.getStock(i).getCompany();
+            BigDecimal price = stocks.getStock(i).getPrice();
+            System.out.println("\t" + i + " - " + company + ", " + price);
         }
     }
 
     // MODIFIES: this
     // EFFECTS: allow user to purchase X amounts of the stock
     private void handleBuyStock(String userInput) {
-        Stock chosenStock = stocks.get(Integer.parseInt(userInput));
+        Stock chosenStock = stocks.getStock(Integer.parseInt(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -146,7 +158,7 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: allow user to sell X amounts of the stock
     private void handleSellStock(String userInput) {
-        Stock chosenStock = stocks.get(Integer.parseInt(userInput));
+        Stock chosenStock = stocks.getStock(Integer.parseInt(userInput));
         if (userInput.equals("q")) {
             stop = true;
         } else {
@@ -172,20 +184,21 @@ public class ConsoleApp {
         if (userInput.equals("q")) {
             stop = true;
         } else {
-            System.out.println(stocks.get(Integer.parseInt(userInput)).viewHistory());
+            System.out.println(stocks.getStock(Integer.parseInt(userInput)).viewHistory());
         }
     }
 
     // MODIFIES: this
     // EFFECTS: generates new prices for each stock and updates net worth accordingly
     private void handleNextDay() {
-        for (Stock s : stocks) {
+        for (int i = 0; i < stocks.getSize(); i++) {
+            Stock s = stocks.getStock(i);
             BigDecimal prevPrice = s.getPrice();
             s.getNewPrice(getPercentageChange());
             BigDecimal newPrice = s.getPrice();
             BigDecimal change = newPrice.subtract(prevPrice);
             int amountOwned = profile.getOwnedStocks().get(s.getCompany());
-            for (int i = 0; i < amountOwned; i++) {
+            for (int j = 0; j < amountOwned; j++) {
                 profile.changeNetWorth(change);
             }
         }
@@ -220,12 +233,20 @@ public class ConsoleApp {
     // EFFECTS: saves profile and market status to file
     private void saveStatus() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(profile);
-            jsonWriter.close();
+            jsonWriterProfile.open();
+            jsonWriterProfile.write(profile);
+            jsonWriterProfile.close();
             System.out.println("Saved profile and market status to " + JSON_STORE_PROFILE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_PROFILE);
+        }
+        try {
+            jsonWriterStocks.open();
+            jsonWriterStocks.write(stocks);
+            jsonWriterStocks.close();
+            System.out.println("Saved profile and market status to " + JSON_STORE_STOCKS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_STOCKS);
         }
     }
 

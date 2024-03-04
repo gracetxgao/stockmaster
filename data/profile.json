@@ -1,25 +1,18 @@
 {
     "net worth": 100,
-    "funds": 80,
-    "profit": -20,
+    "funds": 65.92,
+    "profit": -34.08,
     "owned stocks": {
         "GOOG": 0,
         "NVDA": 0,
-        "RIVN": 1,
+        "RIVN": 0,
         "AAPL": 0,
-        "TSLA": 0,
+        "TSLA": 1,
         "AMZN": 0
     },
-    "transaction history": {"transaction history": [
-        {
-            "amount": 3,
-            "price": 20,
-            "stock": "model.Stock@1e397ed7"
-        },
-        {
-            "amount": -2,
-            "price": 20,
-            "stock": "model.Stock@1e397ed7"
-        }
-    ]}
+    "transaction history": [{
+        "amount": 1,
+        "price": 34.08,
+        "stock": "model.Stock@589838eb"
+    }]
 }

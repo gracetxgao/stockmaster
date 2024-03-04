@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // represents a list of transactions the user has made
-public class TransactionHistory implements Writable {
+public class TransactionHistory {
     private List<Transaction> transactionHistory;
 
     public TransactionHistory() {
@@ -43,22 +43,12 @@ public class TransactionHistory implements Writable {
         return this.transactionHistory.size();
     }
 
-    @Override
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("transaction history", transactionsToJson());
-
-        return json;
-    }
-
     // EFFECTS: returns transactions in history as a JSON array
-    private JSONArray transactionsToJson() {
+    public JSONArray transactionsToJson() {
         JSONArray jsonArray = new JSONArray();
-
         for (Transaction t : transactionHistory) {
             jsonArray.put(t.toJson());
         }
-
         return jsonArray;
     }
 }

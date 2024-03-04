@@ -1,12 +1,10 @@
 package model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 
 // represents a user profile with a fund amount, profit, transaction history, and owned stocks
 public class Profile implements Writable {
@@ -18,14 +16,14 @@ public class Profile implements Writable {
 
     // EFFECTS: constructs new user profile with $100 net worth, $0 profit, empty transaction history, and 0 shares of
     //          each stock
-    public Profile(List<Stock> stockList) {
+    public Profile(StockList stocks) {
         this.funds = new BigDecimal(100);
         this.profit = new BigDecimal(0);
         this.netWorth = new BigDecimal(100);
         this.transactionHistory = new TransactionHistory();
         this.ownedStocks = new HashMap<String, Integer>();
-        for (Stock s : stockList) {
-            this.ownedStocks.put(s.getCompany(), 0);
+        for (int i = 0; i < stocks.getSize(); i++) {
+            this.ownedStocks.put(stocks.getStock(i).getCompany(), 0);
         }
     }
 
@@ -105,7 +103,7 @@ public class Profile implements Writable {
         json.put("funds", funds);
         json.put("profit", profit);
         json.put("net worth", netWorth);
-        json.put("transaction history", transactionHistory.toJson());
+        json.put("transaction history", transactionHistory.transactionsToJson());
         json.put("owned stocks", ownedStocks);
 
         return json;
