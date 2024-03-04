@@ -1,0 +1,11 @@
+{
+    "net worth": 100,
+    "funds": 60,
+    "profit": -40,
+    "owned stocks": {"AAPL": 2},
+    "transaction history": [{
+        "amount": 2,
+        "price": 20,
+        "stock name": "AAPL"
+    }]
+}

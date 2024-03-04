@@ -19,12 +19,15 @@ each stock and the user's profit.
 
 ## User Stories
 
-* Users can buy stocks, bonds, and mutual funds
-* Users can sell the stocks, bonds, and mutual funds they own
+* Users can buy stocks at a given price
+* Users can sell the stocks they own
 * Users can choose the amount of shares they would like to buy or sell
 * Users can view their transaction histories as a list
 * Users can move time forward to generate new prices
-* Users can view statistics about the growth trends of a particular stock, bond, or mutual fund
-* Users can view statistics about their net worth, profit, and growth trends
-* Users can choose to save the state of all simulation components at any point
-* Users can reload the simulation from when it was last saved and continue from that point
+* Users can view statistics about the price changes of a particular stock
+* Users can view statistics about their net worth, profit, and funds owned
+* Users can choose to save the state of all simulation components at any point*
+* Users can reload the simulation from when it was last saved and continue from that point*
+
+*Modelled after https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
