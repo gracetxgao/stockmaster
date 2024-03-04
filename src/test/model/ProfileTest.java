@@ -23,7 +23,7 @@ public class ProfileTest {
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
         s3 = new Stock("BA", BigDecimal.valueOf(10));
-        t1 = new Transaction(s1, BigDecimal.valueOf(415), 1);
+        t1 = new Transaction(s1.getCompany(), BigDecimal.valueOf(415), 1);
         th = new TransactionHistory();
         th.addTransaction(t1);
         stocks = new StockList();

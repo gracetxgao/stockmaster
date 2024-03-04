@@ -2,23 +2,26 @@ package ui;
 
 import model.*;
 //import persistence.JsonReader;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
 // Console based stock market simulator
 public class ConsoleApp {
     private Scanner input;
-    private static final String JSON_STORE_PROFILE = "./data/profile.json";
+    private static final String JSON_STORE_PROFILE = "./data/testReaderProfileOne.json";
     private static final String JSON_STORE_STOCKS = "./data/stocks.json";
     private Profile profile;
     private StockList stocks;
     private Boolean stop;
     private JsonWriter jsonWriterProfile;
     private JsonWriter jsonWriterStocks;
-//    private JsonReader jsonReader;
+    private JsonReader jsonReaderProfile;
+    private JsonReader jsonReaderStocks;
 
     // EFFECTS: runs console app
     public ConsoleApp() {
@@ -47,7 +50,8 @@ public class ConsoleApp {
         input.useDelimiter("\n");
         jsonWriterProfile = new JsonWriter(JSON_STORE_PROFILE);
         jsonWriterStocks = new JsonWriter(JSON_STORE_STOCKS);
-//        jsonReader = new JsonReader();
+        jsonReaderProfile = new JsonReader(JSON_STORE_PROFILE);
+        jsonReaderStocks = new JsonReader(JSON_STORE_STOCKS);
     }
 
     // MODIFIES: this
@@ -124,6 +128,8 @@ public class ConsoleApp {
             showUserStatus();
         } else if (userInput.equals("7")) {
             saveStatus();
+        } else if (userInput.equals("8")) {
+            loadStatus();
         } else {
             stop = true;
         }
@@ -250,11 +256,14 @@ public class ConsoleApp {
         }
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: loads profile and market status from file
-//    private void loadStatus() {
-//        profile = jsonReader.read(profile);
-//        stocks = jsonReader.read(stocks);
-//        System.out.println("Loaded profile and market status from " + JSON_STORE);
-//    }
+    // MODIFIES: this
+    // EFFECTS: loads profile and market status from file
+    private void loadStatus() {
+        try {
+            profile = jsonReaderProfile.read();
+            System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
+        }
+    }
 }

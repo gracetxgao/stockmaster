@@ -14,12 +14,12 @@ public class TransactionTest {
     @BeforeEach
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
-        t1 = new Transaction(s1, BigDecimal.valueOf(415), 1);
+        t1 = new Transaction(s1.getCompany(), BigDecimal.valueOf(415), 1);
     }
 
     @Test
     void testConstructor() {
-        assertEquals(s1, t1.getStock());
+        assertEquals(s1.getCompany(), t1.getStockName());
         assertEquals(BigDecimal.valueOf(415), t1.getPrice());
         assertEquals(1, t1.getAmount());
     }

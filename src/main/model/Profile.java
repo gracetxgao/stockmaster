@@ -27,6 +27,16 @@ public class Profile implements Writable {
         }
     }
 
+    // EFFECTS: constructs new user with given information, for use when reading data from file
+    public Profile(BigDecimal funds, BigDecimal profit, BigDecimal netWorth,
+                   TransactionHistory transactionHistory, HashMap<String, Integer> ownedStocks) {
+        this.funds = funds;
+        this.profit = profit;
+        this.netWorth = netWorth;
+        this.transactionHistory = transactionHistory;
+        this.ownedStocks = ownedStocks;
+    }
+
     public BigDecimal getFunds() {
         return this.funds;
     }
@@ -69,7 +79,7 @@ public class Profile implements Writable {
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
             this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
-            Transaction t = new Transaction(stock, stock.getPrice(), amount);
+            Transaction t = new Transaction(stock.getCompany(), stock.getPrice(), amount);
             this.transactionHistory.addTransaction(t);
             String company = stock.getCompany();
             BigDecimal price = stock.getPrice();
@@ -88,7 +98,7 @@ public class Profile implements Writable {
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
             this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
-            Transaction t = new Transaction(stock, stock.getPrice(), amount);
+            Transaction t = new Transaction(stock.getCompany(), stock.getPrice(), amount);
             this.transactionHistory.addTransaction(t);
             String company = stock.getCompany();
             BigDecimal price = stock.getPrice();

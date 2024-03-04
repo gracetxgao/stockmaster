@@ -19,8 +19,8 @@ public class TransactionHistoryTest {
     void setup() {
         s1 = new Stock("MSFT", BigDecimal.valueOf(415));
         th = new TransactionHistory();
-        t1 = new Transaction(s1, BigDecimal.valueOf(415), 1);
-        t2 = new Transaction(s1, BigDecimal.valueOf(415), -1);
+        t1 = new Transaction(s1.getCompany(), BigDecimal.valueOf(415), 1);
+        t2 = new Transaction(s1.getCompany(), BigDecimal.valueOf(415), -1);
     }
 
     @Test

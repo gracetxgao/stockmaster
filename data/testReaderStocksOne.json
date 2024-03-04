@@ -1,0 +1,56 @@
+{"stocks": [
+  {
+    "price": 146.66,
+    "company": "AAPL",
+    "price history": [
+      150,
+      154.47,
+      146.66
+    ]
+  },
+  {
+    "price": 128.01,
+    "company": "GOOG",
+    "price history": [
+      125,
+      134.29,
+      128.01
+    ]
+  },
+  {
+    "price": 733.07,
+    "company": "NVDA",
+    "price history": [
+      720,
+      764.4,
+      733.07
+    ]
+  },
+  {
+    "price": 160.18,
+    "company": "AMZN",
+    "price history": [
+      175,
+      168.44,
+      160.18
+    ]
+  },
+  {
+    "price": 22.22,
+    "company": "RIVN",
+    "price history": [
+      20,
+      21.2,
+      22.22
+    ]
+  },
+  {
+    "price": 27.5,
+    "company": "TSLA",
+    "price history": [
+      30,
+      29.6,
+      27.5
+    ]
+  }
+]}

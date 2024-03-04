@@ -7,19 +7,19 @@ import java.math.BigDecimal;
 
 // represents a transaction given the stock exchanged and price (amount positive for buying and negative for selling)
 public class Transaction implements Writable {
-    private Stock stock;
+    private String stockName;
     private BigDecimal price;
     private int amount;
 
     // EFFECTS: constructs a transaction with given stock, price, and amount of shares bought
-    public Transaction(Stock stock, BigDecimal price, int amount) {
-        this.stock = stock;
+    public Transaction(String stockName, BigDecimal price, int amount) {
+        this.stockName = stockName;
         this.price = price;
         this.amount = amount;
     }
 
-    public Stock getStock() {
-        return this.stock;
+    public String getStockName() {
+        return this.stockName;
     }
 
     public BigDecimal getPrice() {
@@ -33,7 +33,7 @@ public class Transaction implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("stock", stock);
+        json.put("stock name", stockName);
         json.put("price", price);
         json.put("amount", amount);
 

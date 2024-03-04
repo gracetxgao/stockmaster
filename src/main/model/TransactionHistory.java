@@ -27,7 +27,7 @@ public class TransactionHistory {
         List<String> outputHistory = new ArrayList<String>();
         for (Transaction t : transactionHistory) {
             int amt = t.getAmount();
-            String company = t.getStock().getCompany();
+            String company = t.getStockName();
             BigDecimal price = t.getPrice();
             if (amt < 0) {
                 outputHistory.add("Sold " + Math.abs(amt) + " shares of " + company + " for $" + price + " each");
