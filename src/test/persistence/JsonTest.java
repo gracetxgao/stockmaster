@@ -11,15 +11,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonTest {
-    protected void checkProfile(BigDecimal funds, BigDecimal profit, BigDecimal netWorth,
-                                TransactionHistory transactionHistory, HashMap<String, Integer> ownedStocks,
-                                Profile profile) {
-        assertEquals(funds, profile.getFunds());
-        assertEquals(profit, profile.getProfit());
-        assertEquals(netWorth, profile.getNetWorth());
-        assertEquals(transactionHistory.getTransactionHistorySize(),
-                profile.getTransactionHistory().getTransactionHistorySize());
-        assertEquals(ownedStocks, profile.getOwnedStocks());
+    protected void checkProfile(Profile expected, Profile actual) {
+        assertEquals(expected.getFunds(), actual.getFunds());
+        assertEquals(expected.getProfit(), actual.getProfit());
+        assertEquals(expected.getNetWorth(), actual.getNetWorth());
+        assertEquals(expected.getTransactionHistory().getTransactionHistorySize(),
+                actual.getTransactionHistory().getTransactionHistorySize());
+        assertEquals(expected.getOwnedStocks(), actual.getOwnedStocks());
     }
 
     protected void checkStock(String company, BigDecimal price, List<BigDecimal> priceHistory, Stock stock) {

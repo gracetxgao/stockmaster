@@ -65,21 +65,16 @@ class JsonWriterTest extends JsonTest {
             StockList sl = new StockList();
             Stock s1 = new Stock("AAPL", BigDecimal.valueOf(20));
             sl.addStock(s1);
-            Profile p = new Profile(sl);
-            p.buyStock(s1, 2);
+            Profile expected = new Profile(sl);
+            expected.buyStock(s1, 2);
             JsonWriter writer = new JsonWriter("./data/testWriterProfileTwo.json");
             writer.open();
-            writer.write(p);
+            writer.write(expected);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterProfileTwo.json");
-            p = reader.readProfile();
-            TransactionHistory th = new TransactionHistory();
-            Transaction t = new Transaction("AAPL", BigDecimal.valueOf(20), 2);
-            th.addTransaction(t);
-            HashMap<String, Integer> ownedStocks = new HashMap<String, Integer>();
-            ownedStocks.put("AAPL", 2);
-            checkProfile(BigDecimal.valueOf(60), BigDecimal.valueOf(-40), BigDecimal.valueOf(100), th, ownedStocks, p);
+            Profile actual = reader.readProfile();
+            checkProfile(expected, actual);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
