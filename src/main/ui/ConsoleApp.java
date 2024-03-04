@@ -13,8 +13,8 @@ import java.util.*;
 // Console based stock market simulator
 public class ConsoleApp {
     private Scanner input;
-    private static final String JSON_STORE_PROFILE = "./data/testReaderProfileOne.json";
-    private static final String JSON_STORE_STOCKS = "./data/testReaderStocksOne.json";
+    private static final String JSON_STORE_PROFILE = "./data/profile.json";
+    private static final String JSON_STORE_STOCKS = "./data/stocks.json";
     private Profile profile;
     private StockList stocks;
     private Boolean stop;
@@ -242,7 +242,7 @@ public class ConsoleApp {
             jsonWriterProfile.open();
             jsonWriterProfile.write(profile);
             jsonWriterProfile.close();
-            System.out.println("Saved profile and market status to " + JSON_STORE_PROFILE);
+            System.out.println("Saved profile status to " + JSON_STORE_PROFILE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_PROFILE);
         }
@@ -250,7 +250,7 @@ public class ConsoleApp {
             jsonWriterStocks.open();
             jsonWriterStocks.write(stocks);
             jsonWriterStocks.close();
-            System.out.println("Saved profile and market status to " + JSON_STORE_STOCKS);
+            System.out.println("Saved market status to " + JSON_STORE_STOCKS);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_STOCKS);
         }

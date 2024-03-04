@@ -1,0 +1,32 @@
+{"stocks": [
+    {
+        "price": 150,
+        "company": "AAPL",
+        "price history": [150]
+    },
+    {
+        "price": 125,
+        "company": "GOOG",
+        "price history": [125]
+    },
+    {
+        "price": 720,
+        "company": "NVDA",
+        "price history": [720]
+    },
+    {
+        "price": 175,
+        "company": "AMZN",
+        "price history": [175]
+    },
+    {
+        "price": 20,
+        "company": "RIVN",
+        "price history": [20]
+    },
+    {
+        "price": 30,
+        "company": "TSLA",
+        "price history": [30]
+    }
+]}

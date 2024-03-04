@@ -1,0 +1,14 @@
+{
+    "net worth": 100,
+    "funds": 100,
+    "profit": 0,
+    "owned stocks": {
+        "GOOG": 0,
+        "NVDA": 0,
+        "RIVN": 0,
+        "AAPL": 0,
+        "TSLA": 0,
+        "AMZN": 0
+    },
+    "transaction history": []
+}
