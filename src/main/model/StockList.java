@@ -11,9 +11,14 @@ import java.util.List;
 public class StockList implements Writable {
     private List<Stock> stocks;
 
-    // EFFECTS: constructs list of stocks in market
+    // EFFECTS: constructs empty list of stocks in market
     public StockList() {
         this.stocks = new ArrayList<Stock>();
+    }
+
+    // EFFECTS: constructs list of stocks in market, for use when reading from file
+    public StockList(List<Stock> stocks) {
+        this.stocks = stocks;
     }
 
     // MODIFIES: this

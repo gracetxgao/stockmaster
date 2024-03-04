@@ -1,9 +1,6 @@
 package persistence;
 
-import model.Profile;
-import model.Stock;
-import model.Transaction;
-import model.TransactionHistory;
+import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,10 +23,18 @@ public class JsonReader {
 
     // EFFECTS: reads profile from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public Profile read() throws IOException {
+    public Profile readProfile() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseProfile(jsonObject);
+    }
+
+    // EFFECTS: reads stock status from file and returns it;
+    // throws IOException if an error occurs reading data from file
+    public StockList readStockList() throws IOException {
+        String jsonData = readFile(source);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseStockList(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -45,9 +50,9 @@ public class JsonReader {
 
     // EFFECTS: parses profile from JSON object and returns it
     private Profile parseProfile(JSONObject jsonObject) {
-        BigDecimal funds = new BigDecimal(jsonObject.getInt("funds"));
-        BigDecimal profit = new BigDecimal(jsonObject.getInt("profit"));
-        BigDecimal netWorth = new BigDecimal(jsonObject.getInt("net worth"));
+        BigDecimal funds = jsonObject.getBigDecimal("funds");
+        BigDecimal profit = jsonObject.getBigDecimal("profit");
+        BigDecimal netWorth = jsonObject.getBigDecimal("net worth");
 
         JSONObject jsonOwnedStocks = jsonObject.getJSONObject("owned stocks");
         HashMap<String, Integer> ownedStocks = parseOwnedStocks(jsonOwnedStocks);
@@ -64,7 +69,7 @@ public class JsonReader {
         for (int i = 0; i < jsonTransactionHistory.length(); i++) {
             JSONObject t = jsonTransactionHistory.getJSONObject(i);
             String stockName = t.getString("stock name");
-            BigDecimal price = new BigDecimal(t.getInt("price"));
+            BigDecimal price = t.getBigDecimal("price");
             int amount = t.getInt("amount");
             Transaction transaction = new Transaction(stockName, price, amount);
             transactionHistory.addTransaction(transaction);
@@ -82,5 +87,32 @@ public class JsonReader {
             ownedStocks.put(companiesList.get(i), amount);
         }
         return ownedStocks;
+    }
+
+    // EFFECTS: parses stock list from JSON object and returns it
+    private StockList parseStockList(JSONObject jsonObject) {
+        JSONArray jsonStockList = jsonObject.getJSONArray("stocks");
+        List<Stock> stocks = parseStocks(jsonStockList);
+        StockList stockList = new StockList(stocks);
+        return stockList;
+    }
+
+    // EFFECTS: returns JSON stock array as list of stocks
+    private List<Stock> parseStocks(JSONArray jsonStockList) {
+        List<Stock> stocks = new ArrayList<>();
+        for (int i = 0; i < jsonStockList.length(); i++) {
+            JSONObject s = jsonStockList.getJSONObject(i);
+            String company = s.getString("company");
+            BigDecimal currPrice = s.getBigDecimal("price");
+            JSONArray jsonPriceHistory = s.getJSONArray("price history");
+            List<BigDecimal> priceHistory = new ArrayList<>();
+            for (int j = 0; j < jsonPriceHistory.length(); j++) {
+                BigDecimal price = jsonPriceHistory.getBigDecimal(j);
+                priceHistory.add(price);
+            }
+            Stock stock = new Stock(company, currPrice, priceHistory);
+            stocks.add(stock);
+        }
+        return stocks;
     }
 }

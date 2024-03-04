@@ -22,6 +22,14 @@ public class Stock implements Writable {
         this.priceHistory.add(price);
     }
 
+    // EFFECTS: constructs stock given company, current price, and stock history list
+    //          for use when loading data from file
+    public Stock(String company, BigDecimal currPrice, List<BigDecimal> priceHistory) {
+        this.company = company;
+        this.price = currPrice;
+        this.priceHistory = priceHistory;
+    }
+
     // MODIFIES: this
     // EFFECTS: changes stock price by given percentage and adds previous price to price history
     public void getNewPrice(double change) {

@@ -14,7 +14,7 @@ import java.util.*;
 public class ConsoleApp {
     private Scanner input;
     private static final String JSON_STORE_PROFILE = "./data/testReaderProfileOne.json";
-    private static final String JSON_STORE_STOCKS = "./data/stocks.json";
+    private static final String JSON_STORE_STOCKS = "./data/testReaderStocksOne.json";
     private Profile profile;
     private StockList stocks;
     private Boolean stop;
@@ -260,10 +260,16 @@ public class ConsoleApp {
     // EFFECTS: loads profile and market status from file
     private void loadStatus() {
         try {
-            profile = jsonReaderProfile.read();
+            profile = jsonReaderProfile.readProfile();
             System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
+        }
+        try {
+            stocks = jsonReaderStocks.readStockList();
+            System.out.println("Loaded profile status from " + JSON_STORE_STOCKS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_STOCKS);
         }
     }
 }
