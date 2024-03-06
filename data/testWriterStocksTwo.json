@@ -1,0 +1,12 @@
+{"stocks": [
+    {
+        "price": 20,
+        "company": "AAPL",
+        "price history": [20]
+    },
+    {
+        "price": 120,
+        "company": "MSFT",
+        "price history": [120]
+    }
+]}
