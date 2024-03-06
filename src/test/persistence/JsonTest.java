@@ -20,9 +20,9 @@ public class JsonTest {
         assertEquals(expected.getOwnedStocks(), actual.getOwnedStocks());
     }
 
-    protected void checkStock(String company, BigDecimal price, List<BigDecimal> priceHistory, Stock stock) {
-        assertEquals(company, stock.getCompany());
-        assertEquals(price, stock.getPrice());
-        assertEquals(priceHistory, stock.viewHistory());
+    protected void checkStock(Stock expected, Stock actual) {
+        assertEquals(expected.getCompany(), actual.getCompany());
+        assertEquals(expected.getPrice(), actual.getPrice());
+        assertEquals(expected.viewHistory(), actual.viewHistory());
     }
 }

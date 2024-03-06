@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 
-// Represents a reader that reads workroom from JSON data stored in file
+// represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -21,16 +21,14 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads profile from file and returns it;
-    // throws IOException if an error occurs reading data from file
+    // EFFECTS: reads profile from file and returns it, throws IOException if an error occurs reading data from file
     public Profile readProfile() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseProfile(jsonObject);
     }
 
-    // EFFECTS: reads stock status from file and returns it;
-    // throws IOException if an error occurs reading data from file
+    // EFFECTS: reads stock status from file and returns it, throws IOException if an error occurs reading data from file
     public StockList readStockList() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
