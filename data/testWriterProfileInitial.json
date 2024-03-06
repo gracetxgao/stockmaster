@@ -1,1 +1,7 @@
-{"stocks": []}
+{
+    "net worth": 100,
+    "funds": 100,
+    "profit": 0,
+    "owned stocks": {},
+    "transaction history": []
+}

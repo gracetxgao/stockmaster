@@ -46,12 +46,12 @@ class JsonWriterTest extends JsonTest {
     void testWriterStocksInitial() {
         try {
             StockList sl = new StockList();
-            JsonWriter writer = new JsonWriter("./data/testWriterProfileInitial.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterStocksInitial.json");
             writer.open();
             writer.write(sl);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterProfileInitial.json");
+            JsonReader reader = new JsonReader("./data/testWriterStocksInitial.json");
             sl = reader.readStockList();
             assertEquals(0, sl.getSize());
         } catch (IOException e) {
