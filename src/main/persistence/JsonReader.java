@@ -28,7 +28,8 @@ public class JsonReader {
         return parseProfile(jsonObject);
     }
 
-    // EFFECTS: reads stock status from file and returns it, throws IOException if an error occurs reading data from file
+    // EFFECTS: reads stock status from file and returns it,
+    //          throws IOException if an error occurs reading data from file
     public StockList readStockList() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
