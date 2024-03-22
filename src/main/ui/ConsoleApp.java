@@ -286,7 +286,7 @@ public class ConsoleApp {
         }
         try {
             stocks = jsonReaderStocks.readStockList();
-            System.out.println("Loaded profile status from " + JSON_STORE_STOCKS);
+            System.out.println("Loaded market status from " + JSON_STORE_STOCKS);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_STOCKS);
         }

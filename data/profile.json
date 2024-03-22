@@ -1,25 +1,18 @@
 {
-    "net worth": 101.72,
-    "funds": 101.72,
-    "profit": 1.72,
+    "net worth": 100,
+    "funds": 40,
+    "profit": -60,
     "owned stocks": {
         "GOOG": 0,
         "NVDA": 0,
         "RIVN": 0,
         "AAPL": 0,
-        "TSLA": 0,
+        "TSLA": 2,
         "AMZN": 0
     },
-    "transaction history": [
-        {
-            "amount": 2,
-            "price": 20,
-            "stock name": "RIVN"
-        },
-        {
-            "amount": -2,
-            "price": 20.86,
-            "stock name": "RIVN"
-        }
-    ]
+    "transaction history": [{
+        "amount": 2,
+        "price": 30,
+        "stock name": "TSLA"
+    }]
 }
