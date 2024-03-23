@@ -2,6 +2,7 @@ package model;
 
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.ProfilePanel;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

@@ -2,7 +2,13 @@ package model;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.MenuPanel;
+import ui.ProfilePanel;
+import ui.StockPanel;
+import ui.StocksPanel;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -15,6 +21,9 @@ public class StockMarket {
     private JsonWriter jsonWriterStocks;
     private JsonReader jsonReaderProfile;
     private JsonReader jsonReaderStocks;
+    private ProfilePanel pp;
+    private StocksPanel sp;
+    private MenuPanel mp;
 
     // MODIFIES: this
     // EFFECTS: initializes all fields
@@ -39,7 +48,123 @@ public class StockMarket {
         jsonReaderStocks = new JsonReader(JSON_STORE_STOCKS);
     }
 
+    public void setStocksPanel(StocksPanel sp) {
+        this.sp = sp;
+    }
+
+    public void setProfilePanel(ProfilePanel pp) {
+        this.pp = pp;
+    }
+
+    public void setMenuPanel(MenuPanel mp) {
+        this.mp = mp;
+    }
+
     public StockList getStocks() {
         return stocks;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+//    // MODIFIES: this
+//    // EFFECTS: allow user to purchase X amounts of the stock
+//    public void handleBuyStock(String userInput) {
+//        Stock chosenStock = stocks.getStock(Integer.parseInt(userInput));
+//        if (userInput.equals("q")) {
+//            stop = true;
+//        } else {
+//            showChooseAmount();
+//            int amount = Integer.parseInt(input.nextLine());
+//            profile.buyStock(chosenStock, amount);
+//        }
+//        showContinue();
+//        userInput = input.nextLine().toLowerCase();
+//        handleContinue(userInput);
+//    }
+
+//    // MODIFIES: this
+//    // EFFECTS: allow user to sell X amounts of the stock
+//    public void handleSellStock(String userInput) {
+//        Stock chosenStock = stocks.getStock(Integer.parseInt(userInput));
+//        if (userInput.equals("q")) {
+//            stop = true;
+//        } else {
+//            showChooseAmount();
+//            int amount = (-1 * Integer.parseInt(input.nextLine()));
+//            profile.sellStock(chosenStock, amount);
+//        }
+//        showContinue();
+//        userInput = input.nextLine().toLowerCase();
+//        handleContinue(userInput);
+//    }
+//
+//    public void showChooseAmount() {
+//        System.out.println("Enter amount:");
+//    }
+
+    // MODIFIES: this
+    // EFFECTS: generates new prices for each stock and updates net worth accordingly
+    public void handleNextDay() {
+        for (int i = 0; i < stocks.getSize(); i++) {
+            Stock s = stocks.getStock(i);
+            BigDecimal prevPrice = s.getPrice();
+            s.getNewPrice(getPercentageChange());
+            BigDecimal newPrice = s.getPrice();
+            sp.getStockPanelList().get(i).setStockPriceLabel(newPrice);
+            BigDecimal change = newPrice.subtract(prevPrice);
+            int amountOwned = profile.getOwnedStocks().get(s.getCompany());
+            for (int j = 0; j < amountOwned; j++) {
+                profile.changeNetWorth(change);
+            }
+        }
+    }
+
+    // EFFECTS: generates value for percentage change (as decimal, eg 0.01)
+    //          if value is odd, turn negative (arbitrary choice so that value does not only grow)
+    private double getPercentageChange() {
+        double change = Math.random() / 10;
+        if (Math.round(change * 1000) % 2 == 1) {
+            change = -change;
+        }
+        return change;
+    }
+
+    // EFFECTS: saves profile and market status to file
+    public void saveStatus() {
+        try {
+            jsonWriterProfile.open();
+            jsonWriterProfile.write(profile);
+            jsonWriterProfile.close();
+            System.out.println("Saved profile status to " + JSON_STORE_PROFILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_PROFILE);
+        }
+        try {
+            jsonWriterStocks.open();
+            jsonWriterStocks.write(stocks);
+            jsonWriterStocks.close();
+            System.out.println("Saved market status to " + JSON_STORE_STOCKS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_STOCKS);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads profile and market status from file
+    public void loadStatus() {
+        try {
+            profile = jsonReaderProfile.readProfile();
+            System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
+        }
+        try {
+            stocks = jsonReaderStocks.readStockList();
+            System.out.println("Loaded market status from " + JSON_STORE_STOCKS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_STOCKS);
+        }
     }
 }
