@@ -68,41 +68,19 @@ public class StockMarket {
         return profile;
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: allow user to purchase X amounts of the stock
-//    public void handleBuyStock(String userInput) {
-//        Stock chosenStock = stocks.getStock(Integer.parseInt(userInput));
-//        if (userInput.equals("q")) {
-//            stop = true;
-//        } else {
-//            showChooseAmount();
-//            int amount = Integer.parseInt(input.nextLine());
-//            profile.buyStock(chosenStock, amount);
-//        }
-//        showContinue();
-//        userInput = input.nextLine().toLowerCase();
-//        handleContinue(userInput);
-//    }
+    // MODIFIES: this
+    // EFFECTS: allow user to purchase X amounts of the stock
+    public void handleBuyStock(Stock s) {
+        int amount = sp.chooseAmount();
+        profile.buyStock(s, amount);
+    }
 
-//    // MODIFIES: this
-//    // EFFECTS: allow user to sell X amounts of the stock
-//    public void handleSellStock(String userInput) {
-//        Stock chosenStock = stocks.getStock(Integer.parseInt(userInput));
-//        if (userInput.equals("q")) {
-//            stop = true;
-//        } else {
-//            showChooseAmount();
-//            int amount = (-1 * Integer.parseInt(input.nextLine()));
-//            profile.sellStock(chosenStock, amount);
-//        }
-//        showContinue();
-//        userInput = input.nextLine().toLowerCase();
-//        handleContinue(userInput);
-//    }
-//
-//    public void showChooseAmount() {
-//        System.out.println("Enter amount:");
-//    }
+    // MODIFIES: this
+    // EFFECTS: allow user to purchase X amounts of the stock
+    public void handleSellStock(Stock s) {
+        int amount = sp.chooseAmount();
+        profile.sellStock(s, amount);
+    }
 
     // MODIFIES: this
     // EFFECTS: generates new prices for each stock and updates net worth accordingly
@@ -117,6 +95,7 @@ public class StockMarket {
             int amountOwned = profile.getOwnedStocks().get(s.getCompany());
             for (int j = 0; j < amountOwned; j++) {
                 profile.changeNetWorth(change);
+                pp.setNetWorthLabel(profile.getNetWorth().add(change));
             }
         }
     }
@@ -132,7 +111,7 @@ public class StockMarket {
     }
 
     // EFFECTS: saves profile and market status to file
-    public void saveStatus() {
+    public void handleSave() {
         try {
             jsonWriterProfile.open();
             jsonWriterProfile.write(profile);
@@ -153,7 +132,7 @@ public class StockMarket {
 
     // MODIFIES: this
     // EFFECTS: loads profile and market status from file
-    public void loadStatus() {
+    public void handleReload() {
         try {
             profile = jsonReaderProfile.readProfile();
             System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);

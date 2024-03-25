@@ -2,6 +2,8 @@ package ui;
 
 import model.StockMarket;
 import ui.tools.NextButton;
+import ui.tools.ReloadButton;
+import ui.tools.SaveButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +13,8 @@ public class MenuPanel extends JPanel {
     private StockMarket sm;
     private StockMarketSimulator sms;
     private static NextButton next;
-    private static JButton save;
-    private static JButton reload;
+    private static SaveButton save;
+    private static ReloadButton reload;
 //    public static final int MENU_WIDTH = (int) (StockMarketSimulator.WIDTH);
 //    public static final int MENU_HEIGHT = (int) (StockMarketSimulator.HEIGHT * 0.2);
     public static final int MENU_WIDTH = 1000;
@@ -20,11 +22,9 @@ public class MenuPanel extends JPanel {
 
     public MenuPanel(StockMarket sm) {
         next = new NextButton(sm, this);
+        save = new SaveButton(sm, this);
+        reload = new ReloadButton(sm, this);
 
-        save = new JButton("save");
-        reload = new JButton("reload");
-        add(save);
-        add(reload);
         setBorder(BorderFactory.createLineBorder(Color.black));
         setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
         this.sm = sm;

@@ -5,6 +5,7 @@ import model.StockMarket;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 
 public class ProfilePanel extends JPanel {
     private JLabel profileLabel;
@@ -17,12 +18,15 @@ public class ProfilePanel extends JPanel {
     public static final int PROFILE_WIDTH = 400;
     public static final int PROFILE_HEIGHT = 700;
 
-    public ProfilePanel(StockMarket sm) {
+    public ProfilePanel(StockMarket sm, Profile p) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         profileLabel = new JLabel("profile");
-        netWorth = new JLabel("");
+        netWorth = new JLabel();
+        setNetWorthLabel(p.getNetWorth());
         profit = new JLabel();
+        setProfitLabel(p.getProfit());
         funds = new JLabel();
+        setFundsLabel(p.getFunds());
         add(profileLabel);
         add(netWorth);
         add(profit);
@@ -31,7 +35,15 @@ public class ProfilePanel extends JPanel {
         this.sm = sm;
     }
 
-    public void setNetWorthLabel(String netWorth) {
-        this.netWorth.setText(netWorth);
+    public void setNetWorthLabel(BigDecimal netWorth) {
+        this.netWorth.setText(netWorth.toString());
+    }
+
+    public void setProfitLabel(BigDecimal profit) {
+        this.netWorth.setText(profit.toString());
+    }
+
+    public void setFundsLabel(BigDecimal funds) {
+        this.netWorth.setText(funds.toString());
     }
 }

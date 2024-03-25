@@ -19,9 +19,9 @@ public class StockMarketSimulator extends JFrame {
     public StockMarketSimulator() {
         super("stock market simulator");
         sm = new StockMarket();
-        pp = new ProfilePanel(sm);
-        mp = new MenuPanel(sm);
         sp = new StocksPanel(sm, sm.getStocks());
+        pp = new ProfilePanel(sm, sm.getProfile());
+        mp = new MenuPanel(sm);
         sm.setStocksPanel(sp);
         sm.setProfilePanel(pp);
         sm.setMenuPanel(mp);
