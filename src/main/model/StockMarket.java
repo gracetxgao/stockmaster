@@ -73,13 +73,17 @@ public class StockMarket {
     public void handleBuyStock(Stock s) {
         int amount = sp.chooseAmount();
         profile.buyStock(s, amount);
+        pp.setFundsLabel(profile.getFunds());
+        pp.setProfitLabel(profile.getProfit());
     }
 
     // MODIFIES: this
     // EFFECTS: allow user to purchase X amounts of the stock
     public void handleSellStock(Stock s) {
-        int amount = sp.chooseAmount();
+        int amount = (-1 * sp.chooseAmount());
         profile.sellStock(s, amount);
+        pp.setFundsLabel(profile.getFunds());
+        pp.setProfitLabel(profile.getProfit());
     }
 
     // MODIFIES: this
@@ -95,7 +99,7 @@ public class StockMarket {
             int amountOwned = profile.getOwnedStocks().get(s.getCompany());
             for (int j = 0; j < amountOwned; j++) {
                 profile.changeNetWorth(change);
-                pp.setNetWorthLabel(profile.getNetWorth().add(change));
+                pp.setNetWorthLabel(profile.getNetWorth());
             }
         }
     }
@@ -135,12 +139,18 @@ public class StockMarket {
     public void handleReload() {
         try {
             profile = jsonReaderProfile.readProfile();
+            pp.setNetWorthLabel(profile.getNetWorth());
+            pp.setFundsLabel(profile.getFunds());
+            pp.setProfitLabel(profile.getProfit());
             System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
         }
         try {
             stocks = jsonReaderStocks.readStockList();
+            for (int i = 0; i < stocks.getSize(); i++) {
+                sp.getStockPanelList().get(i).setStockPriceLabel(stocks.getStock(i).getPrice());
+            }
             System.out.println("Loaded market status from " + JSON_STORE_STOCKS);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_STOCKS);

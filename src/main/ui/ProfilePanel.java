@@ -36,14 +36,14 @@ public class ProfilePanel extends JPanel {
     }
 
     public void setNetWorthLabel(BigDecimal netWorth) {
-        this.netWorth.setText(netWorth.toString());
+        this.netWorth.setText("net worth: " + netWorth.toString());
     }
 
     public void setProfitLabel(BigDecimal profit) {
-        this.netWorth.setText(profit.toString());
+        this.profit.setText("profit: " + profit.toString());
     }
 
     public void setFundsLabel(BigDecimal funds) {
-        this.netWorth.setText(funds.toString());
+        this.funds.setText("funds: " + funds.toString());
     }
 }
