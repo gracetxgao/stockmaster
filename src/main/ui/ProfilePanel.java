@@ -3,12 +3,10 @@ package ui;
 import model.Profile;
 import model.StockMarket;
 import model.TransactionHistory;
-import ui.components.OwnedStocksTable;
 import ui.components.TransactionsPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.*;
 import java.math.BigDecimal;
@@ -28,7 +26,7 @@ public class ProfilePanel extends JPanel {
     public static final int PROFILE_HEIGHT = 700;
     private TransactionsPanel transactionsPanel;
 //    private OwnedStocksTable ownedStocksTable;
-    private Profile p;
+    private Profile profile;
     private DefaultTableModel ownedStocksTable;
 
     public ProfilePanel(StockMarket sm, Profile p) {
@@ -48,7 +46,7 @@ public class ProfilePanel extends JPanel {
         this.sm = sm;
         transactionsPanel = new TransactionsPanel(sm, p);
         add(transactionsPanel);
-        this.p = p;
+        this.profile = p;
         makeOwnedStocksTable(p.getOwnedStocks());
     }
 
