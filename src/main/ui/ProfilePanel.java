@@ -7,8 +7,14 @@ import ui.components.OwnedStocksTable;
 import ui.components.TransactionsPanel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
+import java.util.*;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProfilePanel extends JPanel {
     private JLabel profileLabel;
@@ -21,7 +27,9 @@ public class ProfilePanel extends JPanel {
     public static final int PROFILE_WIDTH = 400;
     public static final int PROFILE_HEIGHT = 700;
     private TransactionsPanel transactionsPanel;
-    private OwnedStocksTable ownedStocksTable;
+//    private OwnedStocksTable ownedStocksTable;
+    private Profile p;
+    private DefaultTableModel ownedStocksTable;
 
     public ProfilePanel(StockMarket sm, Profile p) {
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -40,8 +48,30 @@ public class ProfilePanel extends JPanel {
         this.sm = sm;
         transactionsPanel = new TransactionsPanel(sm, p);
         add(transactionsPanel);
-        ownedStocksTable = new OwnedStocksTable(this);
-//        add(ownedStocksTable);
+        this.p = p;
+        makeOwnedStocksTable(p.getOwnedStocks());
+    }
+
+    public void makeOwnedStocksTable(HashMap<String, Integer> ownedStocks) {
+        ownedStocksTable = new DefaultTableModel(
+                new Object[] {"stock", "amount"}, 0
+        );
+        for (Map.Entry<String, Integer> entry : ownedStocks.entrySet()) {
+            ownedStocksTable.addRow(new Object[]{ entry.getKey(), entry.getValue() });
+        }
+        JTable table = new JTable(ownedStocksTable);
+        add(table);
+    }
+
+    public void updateOwnedStocksTable(HashMap<String, Integer> ownedStocks) {
+        List<String> keys = new ArrayList<>(ownedStocks.keySet());
+        for (int i = 0; i < ownedStocks.size(); i++) {
+            Integer prev = (Integer) ownedStocksTable.getValueAt(i, 1);
+            Integer curr = ownedStocks.get(keys.get(i));
+            if (!prev.equals(curr)) {
+                ownedStocksTable.setValueAt(curr, i, 1);
+            }
+        }
     }
 
     public void setNetWorthLabel(BigDecimal netWorth) {
@@ -62,9 +92,5 @@ public class ProfilePanel extends JPanel {
 
     public void addTransaction(String transaction) {
         transactionsPanel.addTransaction(transaction);
-    }
-
-    public void editOwnedStocksTable(int amount, int row, int col) {
-        ownedStocksTable.changeValue(amount, row, col);
     }
 }

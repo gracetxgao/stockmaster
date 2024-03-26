@@ -83,9 +83,7 @@ public class StockMarket {
             String newTransaction = profile.getTransactionHistory().getTransactionHistory()
                     .get(profile.getTransactionHistory().getTransactionHistorySize() - 1);
             pp.addTransaction(newTransaction);
-            List keys = new ArrayList(profile.getOwnedStocks().keySet());
-            Integer prev = profile.getOwnedStocks().get(s.getCompany());
-            pp.editOwnedStocksTable(prev + amount, keys.indexOf(s.getCompany()), 1);
+            pp.updateOwnedStocksTable(profile.getOwnedStocks());
         } else {
             sms.showError("insufficient funds");
         }
@@ -102,9 +100,7 @@ public class StockMarket {
             String newTransaction = profile.getTransactionHistory().getTransactionHistory()
                     .get(profile.getTransactionHistory().getTransactionHistorySize() - 1);
             pp.addTransaction(newTransaction);
-            List keys = new ArrayList(profile.getOwnedStocks().keySet());
-            Integer prev = profile.getOwnedStocks().get(s.getCompany());
-            pp.editOwnedStocksTable(prev + amount, keys.indexOf(s.getCompany()), 1);
+            pp.updateOwnedStocksTable(profile.getOwnedStocks());
         } else {
             sms.showError("not enough owned stocks");
         }
@@ -177,13 +173,7 @@ public class StockMarket {
             for (int i = 0; i < stocks.getSize(); i++) {
                 sp.getStockPanelList().get(i).setStockPriceLabel(stocks.getStock(i).getPrice());
             }
-            List keys = new ArrayList(profile.getOwnedStocks().keySet());
-            for (int i = 0; i < profile.getOwnedStocks().size(); i++) {
-                Integer amountOwned = profile.getOwnedStocks().get(keys.get(i));
-                if (amountOwned != 0) {
-                    pp.editOwnedStocksTable(amountOwned, i, 1);
-                }
-            }
+            pp.updateOwnedStocksTable(profile.getOwnedStocks());
             System.out.println("Loaded market status from " + JSON_STORE_STOCKS);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_STOCKS);
