@@ -1,15 +1,11 @@
-package ui.tools;
+package ui.components;
 
-import model.Stock;
 import model.StockMarket;
 import ui.MenuPanel;
-import ui.StockPanel;
-import ui.StocksPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 
 public class SaveButton implements ActionListener {
     private StockMarket sm;

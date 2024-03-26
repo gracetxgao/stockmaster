@@ -1,4 +1,4 @@
-package ui.tools;
+package ui.components;
 
 import model.StockMarket;
 

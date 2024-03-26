@@ -2,7 +2,7 @@ package ui;
 
 import model.StockList;
 import model.StockMarket;
-import ui.tools.AmountDialog;
+import ui.components.AmountDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +19,9 @@ public class StocksPanel extends JPanel {
     public static final int STOCKS_HEIGHT = (int) (StockMarketSimulator.HEIGHT * 700);
     private List<StockPanel> spList;
     private AmountDialog amountChooser;
+    private StockMarketSimulator sms;
 
-    public StocksPanel(StockMarket sm, StockList stocks) {
+    public StocksPanel(StockMarket sm, StockList stocks, StockMarketSimulator sms) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         stocksLabel = new JLabel("stocks");
         add(stocksLabel, BorderLayout.NORTH);
@@ -29,6 +30,13 @@ public class StocksPanel extends JPanel {
         this.stocks = stocks;
         spList = new ArrayList<>();
         makeStockPanels();
+        this.sms = sms;
+    }
+
+    public void updateStocks(StockList sl) {
+        for (int i = 0; i < stocks.getSize(); i++) {
+            spList.get(i).setStock(sl.getStock(i));
+        }
     }
 
     public void makeStockPanels() {
@@ -48,8 +56,7 @@ public class StocksPanel extends JPanel {
     }
 
     public int chooseAmount() {
-        amountChooser = new AmountDialog(sm);
-        return amountChooser.getAmount();
+        return Integer.valueOf(JOptionPane.showInputDialog(sms,"enter amount: "));
     }
 }
 

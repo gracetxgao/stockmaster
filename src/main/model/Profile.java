@@ -73,10 +73,12 @@ public class Profile implements Writable {
     // MODIFIES: this
     // EFFECTS: if user has enough money, subtracts price from funds, adds transaction to history,
     //          adds shares to owned stock
-    public void buyStock(Stock stock, int amount) {
+    //          returns true if successful and false if not
+    public Boolean buyStock(Stock stock, int amount) {
         BigDecimal cost = stock.getPrice().multiply(BigDecimal.valueOf(amount));
         if (this.funds.compareTo(cost) == -1) {
             System.out.println("Insufficient funds");
+            return false;
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
             this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
@@ -85,17 +87,19 @@ public class Profile implements Writable {
             String company = stock.getCompany();
             BigDecimal price = stock.getPrice();
             System.out.println("Bought " + amount + " shares of " + company + " for $" + price + " each");
-
             changeOwnedStocks(stock, amount);
+            return true;
         }
     }
 
     // MODIFIES: this
     // EFFECTS: if user owns enough shares, adds price to funds, adds transaction to history,
     //          removes shares from owned stock
-    public void sellStock(Stock stock, int amount) {
+    //          returns true if successful and false if not
+    public Boolean sellStock(Stock stock, int amount) {
         if (ownedStocks.get(stock.getCompany()) < Math.abs(amount)) {
             System.out.println("Not enough owned shares");
+            return false;
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
             this.profit = this.profit.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
@@ -105,6 +109,7 @@ public class Profile implements Writable {
             BigDecimal price = stock.getPrice();
             System.out.println("Sold " + Math.abs(amount) + " shares of " + company + " for $" + price + " each");
             changeOwnedStocks(stock, amount);
+            return true;
         }
     }
 

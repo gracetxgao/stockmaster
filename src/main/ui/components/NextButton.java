@@ -1,4 +1,4 @@
-package ui.tools;
+package ui.components;
 
 import model.StockMarket;
 import ui.MenuPanel;
@@ -6,7 +6,6 @@ import ui.MenuPanel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 
 public class NextButton implements ActionListener {
     private StockMarket sm;

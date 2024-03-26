@@ -2,8 +2,8 @@ package ui;
 
 import model.Stock;
 import model.StockMarket;
-import ui.tools.BuyButton;
-import ui.tools.SellButton;
+import ui.components.BuyButton;
+import ui.components.SellButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class StockPanel extends JPanel {
 //    public static final int STOCK_HEIGHT = (int) (StocksPanel.STOCKS_HEIGHT * (1 / 3));
     public static final int STOCK_WIDTH = 150;
     public static final int STOCK_HEIGHT = 200;
-    private Stock s;
+    private Stock stock;
     private StockMarket sm;
 
     public StockPanel(StocksPanel sp, Stock s, int x, int y, StockMarket sm) {
@@ -31,7 +31,7 @@ public class StockPanel extends JPanel {
         stockPrice = new JLabel();
         stockPrice.setText(s.getPrice().toString());
         viewInfo = new JButton("view info");
-        this.s = s;
+        this.stock = s;
         buy = new BuyButton(sm, this);
         sell = new SellButton(sm, this);
         add(stockLabel);
@@ -44,11 +44,15 @@ public class StockPanel extends JPanel {
         setLocation(x, y);
     }
 
+    public void setStock(Stock s) {
+        this.stock = s;
+    }
+
     public void setStockPriceLabel(BigDecimal price) {
         this.stockPrice.setText(price.toString());
     }
 
     public Stock getStock() {
-        return s;
+        return stock;
     }
 }

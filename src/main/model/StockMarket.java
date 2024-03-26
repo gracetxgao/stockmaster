@@ -2,14 +2,13 @@ package model;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.MenuPanel;
-import ui.ProfilePanel;
-import ui.StockPanel;
-import ui.StocksPanel;
+import ui.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class StockMarket {
@@ -24,6 +23,7 @@ public class StockMarket {
     private ProfilePanel pp;
     private StocksPanel sp;
     private MenuPanel mp;
+    private StockMarketSimulator sms;
 
     // MODIFIES: this
     // EFFECTS: initializes all fields
@@ -60,6 +60,10 @@ public class StockMarket {
         this.mp = mp;
     }
 
+    public void setStockMarketSimulator(StockMarketSimulator sms) {
+        this.sms = sms;
+    }
+
     public StockList getStocks() {
         return stocks;
     }
@@ -72,18 +76,38 @@ public class StockMarket {
     // EFFECTS: allow user to purchase X amounts of the stock
     public void handleBuyStock(Stock s) {
         int amount = sp.chooseAmount();
-        profile.buyStock(s, amount);
+        Boolean success = profile.buyStock(s, amount);
         pp.setFundsLabel(profile.getFunds());
         pp.setProfitLabel(profile.getProfit());
+        if (success) {
+            String newTransaction = profile.getTransactionHistory().getTransactionHistory()
+                    .get(profile.getTransactionHistory().getTransactionHistorySize() - 1);
+            pp.addTransaction(newTransaction);
+            List keys = new ArrayList(profile.getOwnedStocks().keySet());
+            Integer prev = profile.getOwnedStocks().get(s.getCompany());
+            pp.editOwnedStocksTable(prev + amount, keys.indexOf(s.getCompany()), 1);
+        } else {
+            sms.showError("insufficient funds");
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: allow user to purchase X amounts of the stock
     public void handleSellStock(Stock s) {
         int amount = (-1 * sp.chooseAmount());
-        profile.sellStock(s, amount);
+        Boolean success = profile.sellStock(s, amount);
         pp.setFundsLabel(profile.getFunds());
         pp.setProfitLabel(profile.getProfit());
+        if (success) {
+            String newTransaction = profile.getTransactionHistory().getTransactionHistory()
+                    .get(profile.getTransactionHistory().getTransactionHistorySize() - 1);
+            pp.addTransaction(newTransaction);
+            List keys = new ArrayList(profile.getOwnedStocks().keySet());
+            Integer prev = profile.getOwnedStocks().get(s.getCompany());
+            pp.editOwnedStocksTable(prev + amount, keys.indexOf(s.getCompany()), 1);
+        } else {
+            sms.showError("not enough owned stocks");
+        }
     }
 
     // MODIFIES: this
@@ -142,14 +166,23 @@ public class StockMarket {
             pp.setNetWorthLabel(profile.getNetWorth());
             pp.setFundsLabel(profile.getFunds());
             pp.setProfitLabel(profile.getProfit());
+            pp.setTransactionHistoryList(profile.getTransactionHistory());
             System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
         }
         try {
             stocks = jsonReaderStocks.readStockList();
+            sp.updateStocks(stocks);
             for (int i = 0; i < stocks.getSize(); i++) {
                 sp.getStockPanelList().get(i).setStockPriceLabel(stocks.getStock(i).getPrice());
+            }
+            List keys = new ArrayList(profile.getOwnedStocks().keySet());
+            for (int i = 0; i < profile.getOwnedStocks().size(); i++) {
+                Integer amountOwned = profile.getOwnedStocks().get(keys.get(i));
+                if (amountOwned != 0) {
+                    pp.editOwnedStocksTable(amountOwned, i, 1);
+                }
             }
             System.out.println("Loaded market status from " + JSON_STORE_STOCKS);
         } catch (IOException e) {

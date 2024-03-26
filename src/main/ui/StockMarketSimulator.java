@@ -19,12 +19,13 @@ public class StockMarketSimulator extends JFrame {
     public StockMarketSimulator() {
         super("stock market simulator");
         sm = new StockMarket();
-        sp = new StocksPanel(sm, sm.getStocks());
+        sp = new StocksPanel(sm, sm.getStocks(), this);
         pp = new ProfilePanel(sm, sm.getProfile());
         mp = new MenuPanel(sm);
         sm.setStocksPanel(sp);
         sm.setProfilePanel(pp);
         sm.setMenuPanel(mp);
+        sm.setStockMarketSimulator(this);
 
         add(sp);
         add(pp, BorderLayout.EAST);
@@ -33,6 +34,10 @@ public class StockMarketSimulator extends JFrame {
         setSize(WIDTH, HEIGHT);
 
         setVisible(true);
+    }
+
+    public void showError(String s) {
+        JOptionPane.showMessageDialog(this, s,"error", JOptionPane.ERROR_MESSAGE);
     }
 
     public ProfilePanel getProfilePanel() {
