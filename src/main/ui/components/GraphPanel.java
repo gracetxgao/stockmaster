@@ -27,7 +27,8 @@ public class GraphPanel {
             series.add(i, data.get(i));
         }
         dataset = new XYSeriesCollection(series);
-        chart = ChartFactory.createXYLineChart(null, "day", "price", dataset, PlotOrientation.VERTICAL, false, true, true);
+        chart = ChartFactory.createXYLineChart(null, "day", "price", dataset,
+                PlotOrientation.VERTICAL, false, true, true);
         cp = new ChartPanel(chart);
         cp.setPreferredSize(new Dimension(GRAPH_WIDTH, GRAPH_HEIGHT));
         this.sp = sp;
