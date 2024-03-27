@@ -10,6 +10,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+// represents stock panel for a specific stock
 public class StockPanel extends JPanel {
     private static JLabel stockLabel;
     private JLabel stockPrice;
@@ -22,6 +23,7 @@ public class StockPanel extends JPanel {
     private StockMarket sm;
     private GraphPanel gp;
 
+    // EFFECTS: constructs stock panel at given location with stock information and graph
     public StockPanel(StocksPanel sp, Stock s, int x, int y, StockMarket sm) {
         this.sm = sm;
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -44,6 +46,8 @@ public class StockPanel extends JPanel {
         this.stock = s;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets stock price label with given price
     public void setStockPriceLabel(BigDecimal price) {
         this.stockPrice.setText(price.toString());
     }
@@ -52,10 +56,14 @@ public class StockPanel extends JPanel {
         return stock;
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates information on graph
     public void updateGraph(List<BigDecimal> data) {
         gp.updateGraph(data);
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads information into graph
     public void loadGraph(List<BigDecimal> data) {
         gp.loadGraph(data);
     }

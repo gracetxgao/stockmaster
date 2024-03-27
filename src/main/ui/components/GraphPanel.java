@@ -12,6 +12,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import ui.StockPanel;
 
+// represents a panel used to hold a graph showing stock price history
 public class GraphPanel {
     private XYSeries series;
     private ChartPanel cp;
@@ -21,6 +22,7 @@ public class GraphPanel {
     public static final int GRAPH_WIDTH = 150;
     public static final int GRAPH_HEIGHT = 200;
 
+    // EFFECTS: constructs graph and adds to stock panel
     public GraphPanel(List<BigDecimal> data, StockPanel sp) {
         series = new XYSeries("price");
         for (int i = 0; i < data.size(); i++) {
@@ -35,22 +37,20 @@ public class GraphPanel {
         sp.add(cp);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds data point to graph
     public void updateGraph(List<BigDecimal> data) {
         for (int i = 0; i < data.size(); i++) {
             series.add(i, data.get(i));
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: resets and adds all data points to graph
     public void loadGraph(List<BigDecimal> data) {
         series.clear();
         for (int i = 0; i < data.size(); i++) {
             series.add(i, data.get(i));
         }
     }
-
-    public void addToStockPanel() {
-        sp.add(cp);
-    }
-
-
 }

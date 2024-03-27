@@ -7,11 +7,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// represents a button used to move onto a new day
 public class NextButton implements ActionListener {
     private StockMarket sm;
-
     private static JButton next;
 
+    // EFFECTS: constructs next button and adds to menu panel
     public NextButton(StockMarket sm, MenuPanel mp) {
         next = new JButton("next");
         next.addActionListener(this);

@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// represents stocks panel that holds all individual stock panels
 public class StocksPanel extends JPanel {
     private StockMarket sm;
     private StockList stocks;
@@ -15,6 +16,7 @@ public class StocksPanel extends JPanel {
     private List<StockPanel> spList;
     private StockMarketSimulator sms;
 
+    // EFFECTS: constructs stocks panel with each stock panel inside
     public StocksPanel(StockMarket sm, StockList stocks, StockMarketSimulator sms) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         setPreferredSize(new Dimension(STOCKS_WIDTH, STOCKS_HEIGHT));
@@ -25,12 +27,16 @@ public class StocksPanel extends JPanel {
         this.sms = sms;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up stock panel for each stock
     public void updateStocks(StockList sl) {
         for (int i = 0; i < stocks.getSize(); i++) {
             spList.get(i).setStock(sl.getStock(i));
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates stock panel for each stock
     public void makeStockPanels() {
         for (int i = 0; i < stocks.getSize(); i++) {
             int x = (i % 3) * 200;
@@ -45,6 +51,7 @@ public class StocksPanel extends JPanel {
         return spList;
     }
 
+    // EFFECTS: shows popup allowing users to choose amount of stock to buy/sell
     public int chooseAmount() {
         return Integer.valueOf(JOptionPane.showInputDialog(sms,"enter amount: "));
     }
