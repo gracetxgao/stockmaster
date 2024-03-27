@@ -1,7 +1,6 @@
 package ui;
 
 import model.StockList;
-import model.StockMarket;
 import ui.components.AmountDialog;
 
 import javax.swing.*;

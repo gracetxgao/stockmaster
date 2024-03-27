@@ -1,94 +1,29 @@
 {
-    "net worth": 303.46,
-    "funds": 303.46,
-    "profit": 203.46,
+    "net worth": 103.14,
+    "funds": 34.7,
+    "profit": -65.3,
     "owned stocks": {
         "GOOG": 0,
         "NVDA": 0,
         "RIVN": 0,
         "AAPL": 0,
-        "TSLA": 0,
+        "TSLA": 2,
         "AMZN": 0
     },
     "transaction history": [
         {
-            "amount": 3,
-            "price": 30,
-            "stock name": "TSLA"
-        },
-        {
-            "amount": -3,
-            "price": 33.34,
-            "stock name": "TSLA"
-        },
-        {
-            "amount": 6,
-            "price": 16.14,
-            "stock name": "RIVN"
-        },
-        {
-            "amount": -6,
-            "price": 20.22,
-            "stock name": "RIVN"
-        },
-        {
-            "amount": 1,
-            "price": 90.13,
-            "stock name": "GOOG"
-        },
-        {
-            "amount": -1,
-            "price": 108.83,
-            "stock name": "GOOG"
-        },
-        {
-            "amount": 1,
-            "price": 106.29,
-            "stock name": "AAPL"
-        },
-        {
-            "amount": -1,
-            "price": 132.51,
-            "stock name": "AAPL"
-        },
-        {
-            "amount": 2,
-            "price": 84.03,
-            "stock name": "AMZN"
-        },
-        {
-            "amount": -2,
-            "price": 104.3,
-            "stock name": "AMZN"
-        },
-        {
-            "amount": 2,
-            "price": 106.09,
-            "stock name": "AAPL"
-        },
-        {
-            "amount": -2,
-            "price": 116.66,
-            "stock name": "AAPL"
-        },
-        {
             "amount": 4,
-            "price": 50.93,
-            "stock name": "GOOG"
+            "price": 20,
+            "stock name": "RIVN"
         },
         {
             "amount": -4,
-            "price": 60.87,
-            "stock name": "GOOG"
+            "price": 21.07,
+            "stock name": "RIVN"
         },
         {
-            "amount": 10,
-            "price": 15.85,
-            "stock name": "TSLA"
-        },
-        {
-            "amount": -10,
-            "price": 18.11,
+            "amount": 2,
+            "price": 34.79,
             "stock name": "TSLA"
         }
     ]

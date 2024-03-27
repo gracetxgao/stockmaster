@@ -1,15 +1,10 @@
 package ui.components;
 
-import model.Stock;
-import model.StockMarket;
-import model.Transaction;
+import ui.StockMarket;
 import model.TransactionHistory;
-import ui.ProfilePanel;
-import ui.StockPanel;
 
 import javax.swing.*;
 import java.util.*;
-import java.awt.event.ActionEvent;
 
 public class TransactionsList {
     private StockMarket sm;
@@ -38,10 +33,24 @@ public class TransactionsList {
     }
 
     public void filterTransactions(String text) {
+        DefaultListModel<String> prev = new DefaultListModel<>();
         for (int i = 0; i < data.size(); i++) {
-            if (!data.contains(text)) {
-                data.removeElement(i);
+            prev.addElement(data.get(i));
+        }
+        data.removeAllElements();
+        for (int i = 0; i < prev.size(); i++) {
+            String curr = prev.get(i);
+            if (curr.contains(text)) {
+                data.addElement(curr);
             }
         }
+//        DefaultListModel<String> filteredData = new DefaultListModel<>();
+//        for (int i = 0; i < data.size(); i++) {
+//            String curr = data.get(i);
+//            if (curr.contains(text)) {
+//                filteredData.addElement(curr);
+//            }
+//        }
+//        data = filteredData;
     }
 }

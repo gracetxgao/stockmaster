@@ -1,7 +1,7 @@
 package ui.components;
 
 import model.Stock;
-import model.StockMarket;
+import ui.StockMarket;
 import ui.StockPanel;
 
 import javax.swing.*;

@@ -1,7 +1,6 @@
 package ui.components;
 
-import model.StockMarket;
-import ui.MenuPanel;
+import ui.StockMarket;
 import ui.StockPanel;
 
 import javax.swing.*;

@@ -27,7 +27,7 @@ public class GraphPanel {
             series.add(i, data.get(i));
         }
         dataset = new XYSeriesCollection(series);
-        chart = ChartFactory.createXYLineChart(null, "day", "price", dataset, PlotOrientation.VERTICAL, true, true, true);
+        chart = ChartFactory.createXYLineChart(null, "day", "price", dataset, PlotOrientation.VERTICAL, false, true, true);
         cp = new ChartPanel(chart);
         cp.setPreferredSize(new Dimension(GRAPH_WIDTH, GRAPH_HEIGHT));
         this.sp = sp;
@@ -35,6 +35,13 @@ public class GraphPanel {
     }
 
     public void updateGraph(List<BigDecimal> data) {
+        for (int i = 0; i < data.size(); i++) {
+            series.add(i, data.get(i));
+        }
+    }
+
+    public void loadGraph(List<BigDecimal> data) {
+        series.clear();
         for (int i = 0; i < data.size(); i++) {
             series.add(i, data.get(i));
         }

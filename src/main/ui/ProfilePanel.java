@@ -1,7 +1,6 @@
 package ui;
 
 import model.Profile;
-import model.StockMarket;
 import model.TransactionHistory;
 import ui.components.TransactionsPanel;
 

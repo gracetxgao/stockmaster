@@ -1,5 +1,8 @@
-package model;
+package ui;
 
+import model.Profile;
+import model.Stock;
+import model.StockList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.*;
@@ -164,10 +167,6 @@ public class StockMarket {
             pp.setFundsLabel(profile.getFunds());
             pp.setProfitLabel(profile.getProfit());
             pp.setTransactionHistoryList(profile.getTransactionHistory());
-            for (int i = 0; i < stocks.getSize(); i++) {
-                Stock s = stocks.getStock(i);
-                sp.getStockPanelList().get(i).updateGraph(s.viewHistory());
-            }
             System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
@@ -176,7 +175,9 @@ public class StockMarket {
             stocks = jsonReaderStocks.readStockList();
             sp.updateStocks(stocks);
             for (int i = 0; i < stocks.getSize(); i++) {
-                sp.getStockPanelList().get(i).setStockPriceLabel(stocks.getStock(i).getPrice());
+                Stock s = stocks.getStock(i);
+                sp.getStockPanelList().get(i).setStockPriceLabel(s.getPrice());
+                sp.getStockPanelList().get(i).loadGraph(s.viewHistory());
             }
             pp.updateOwnedStocksTable(profile.getOwnedStocks());
             System.out.println("Loaded market status from " + JSON_STORE_STOCKS);

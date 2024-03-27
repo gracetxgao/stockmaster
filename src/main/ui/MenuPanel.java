@@ -1,6 +1,5 @@
 package ui;
 
-import model.StockMarket;
 import ui.components.NextButton;
 import ui.components.ReloadButton;
 import ui.components.SaveButton;

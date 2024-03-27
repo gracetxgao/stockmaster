@@ -1,7 +1,6 @@
 package ui;
 
 import model.Stock;
-import model.StockMarket;
 import ui.components.BuyButton;
 import ui.components.GraphPanel;
 import ui.components.SellButton;
@@ -65,5 +64,9 @@ public class StockPanel extends JPanel {
 
     public void updateGraph(List<BigDecimal> data) {
         gp.updateGraph(data);
+    }
+
+    public void loadGraph(List<BigDecimal> data) {
+        gp.loadGraph(data);
     }
 }

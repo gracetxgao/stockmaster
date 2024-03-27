@@ -1,15 +1,12 @@
 package ui.components;
 
 import model.Profile;
-import model.StockMarket;
+import ui.StockMarket;
 import model.TransactionHistory;
-import ui.ProfilePanel;
 import ui.StockMarketSimulator;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TransactionsPanel extends JPanel {
     private StockMarket sm;
@@ -27,7 +24,7 @@ public class TransactionsPanel extends JPanel {
         transactionsLabel = new JLabel("transaction history");
         add(transactionsLabel);
         transactionsList = new TransactionsList(sm, this, p.getTransactionHistory());
-//        filter = new TransactionsFilter(this, transactionsList);
+        filter = new TransactionsFilter(this, transactionsList);
     }
 
     public void setTransactionHistoryList(TransactionHistory transactionHistory) {

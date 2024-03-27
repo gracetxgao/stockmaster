@@ -1,7 +1,5 @@
 package ui;
 
-import model.StockMarket;
-
 import javax.swing.*;
 import java.awt.*;
 
