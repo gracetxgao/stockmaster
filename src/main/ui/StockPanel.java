@@ -4,7 +4,6 @@ import model.Stock;
 import ui.components.BuyButton;
 import ui.components.GraphPanel;
 import ui.components.SellButton;
-import ui.components.ViewInfoButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +13,9 @@ import java.util.List;
 public class StockPanel extends JPanel {
     private static JLabel stockLabel;
     private JLabel stockPrice;
-    private static ViewInfoButton view;
     private static BuyButton buy;
     private static SellButton sell;
-//    private static JLabel companyLogo;
     private StocksPanel sp;
-//    public static final int STOCK_WIDTH = (int) (StocksPanel.STOCKS_WIDTH * (1 / 6));
-//    public static final int STOCK_HEIGHT = (int) (StocksPanel.STOCKS_HEIGHT * (1 / 3));
     public static final int STOCK_WIDTH = 175;
     public static final int STOCK_HEIGHT = 300;
     private Stock stock;
@@ -36,7 +31,6 @@ public class StockPanel extends JPanel {
         this.stock = s;
         buy = new BuyButton(sm, this);
         sell = new SellButton(sm, this);
-//        view = new ViewInfoButton(sm, this);
         add(stockLabel);
         add(stockPrice);
 

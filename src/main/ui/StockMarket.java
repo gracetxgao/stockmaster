@@ -5,14 +5,10 @@ import model.Stock;
 import model.StockList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class StockMarket {
     private static final String JSON_STORE_PROFILE = "./data/profile.json";

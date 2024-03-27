@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StockMarketSimulator extends JFrame {
-    public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-//    public static final int WIDTH = (int) SCREEN_SIZE.getWidth();
-//    public static final int HEIGHT = (int) SCREEN_SIZE.getHeight();
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 800;
     private ProfilePanel pp;
@@ -35,23 +32,8 @@ public class StockMarketSimulator extends JFrame {
     }
 
     public void showError(String s) {
-        JOptionPane.showMessageDialog(this, s,"error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public ProfilePanel getProfilePanel() {
-        return pp;
-    }
-
-    public StocksPanel getStocksPanel() {
-        return sp;
-    }
-
-    public MenuPanel getMenuPanel() {
-        return mp;
-    }
-
-    public StockMarket getStockMarket() {
-        return sm;
+        JOptionPane.showMessageDialog(this, s,"error",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public static void main(String[] args) {
