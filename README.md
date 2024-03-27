@@ -31,3 +31,13 @@ each stock and the user's profit.
 
 *Modelled after https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
+# Instructions for Grader
+
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by typing into 
+the "filter" box in the transaction panel and clicking enter
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by clicking 
+on the "randomize" button in the transaction panel
+- You can locate my visual component by looking to each stock panel's graph
+- You can save the state of my application by clicking the "save" button in the menu panel
+- You can reload the state of my application by clicking the "load" button in the menu panel
+
