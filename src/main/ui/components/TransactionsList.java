@@ -1,10 +1,16 @@
 package ui.components;
 
+import model.Transaction;
 import model.TransactionHistory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TransactionsList {
     private JList<String> transactions;
@@ -42,6 +48,18 @@ public class TransactionsList {
             if (curr.contains(text)) {
                 data.addElement(curr);
             }
+        }
+    }
+
+    public void randomize() {
+        List<String> prev = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            prev.add(data.get(i));
+        }
+        Collections.shuffle(prev);
+        data.removeAllElements();
+        for (int i = 0; i < prev.size(); i++) {
+            data.addElement(prev.get(i));
         }
     }
 }

@@ -52,10 +52,6 @@ public class StockPanel extends JPanel {
         return stock;
     }
 
-    public void showGraph() {
-        gp.addToStockPanel();
-    }
-
     public void updateGraph(List<BigDecimal> data) {
         gp.updateGraph(data);
     }

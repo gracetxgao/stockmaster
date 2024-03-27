@@ -51,6 +51,8 @@ public class ProfilePanel extends JPanel {
             ownedStocksTable.addRow(new Object[]{ entry.getKey(), entry.getValue() });
         }
         JTable table = new JTable(ownedStocksTable);
+        table.setBorder(BorderFactory.createLineBorder(Color.black));
+        table.setPreferredSize(new Dimension(250, 100));
         add(table);
     }
 
