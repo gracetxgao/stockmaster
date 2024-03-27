@@ -30,18 +30,6 @@ public class Transaction implements Writable {
         return this.amount;
     }
 
-    public void setStockName(String s) {
-        this.stockName = s;
-    }
-
-    public void setPrice(BigDecimal p) {
-        this.price = p;
-    }
-
-    public void setAmount(Integer a) {
-        this.amount = a;
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
