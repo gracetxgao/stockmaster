@@ -121,6 +121,7 @@ public class StockMarket {
                 profile.changeNetWorth(change);
                 pp.setNetWorthLabel(profile.getNetWorth());
             }
+            sp.getStockPanelList().get(i).updateGraph(s.viewHistory());
         }
     }
 
@@ -163,6 +164,10 @@ public class StockMarket {
             pp.setFundsLabel(profile.getFunds());
             pp.setProfitLabel(profile.getProfit());
             pp.setTransactionHistoryList(profile.getTransactionHistory());
+            for (int i = 0; i < stocks.getSize(); i++) {
+                Stock s = stocks.getStock(i);
+                sp.getStockPanelList().get(i).updateGraph(s.viewHistory());
+            }
             System.out.println("Loaded profile status from " + JSON_STORE_PROFILE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_PROFILE);
