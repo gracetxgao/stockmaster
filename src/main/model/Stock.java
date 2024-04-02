@@ -39,6 +39,7 @@ public class Stock implements Writable {
         roundedNewPrice = newPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
         this.price = roundedNewPrice;
         this.priceHistory.add(roundedNewPrice);
+        EventLog.getInstance().logEvent(new Event(company + " price changed to " + price));
     }
 
     // EFFECTS: prints price history

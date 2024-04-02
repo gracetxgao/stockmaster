@@ -4,8 +4,6 @@ import model.TransactionHistory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 // represents a visual transaction history list
@@ -38,31 +36,4 @@ public class TransactionsList {
         data.addElement(transaction);
     }
 
-    // MODIFIES: this
-    // EFFECTS: filters list for keywords
-    public void filterTransactions(String text) {
-        DefaultListModel<String> prev = new DefaultListModel<>();
-        for (int i = 0; i < data.size(); i++) {
-            prev.addElement(data.get(i));
-        }
-        data.removeAllElements();
-        for (int i = 0; i < prev.size(); i++) {
-            String curr = prev.get(i);
-            if (curr.contains(text)) {
-                data.addElement(curr);
-            }
-        }
-    }
-
-    public void randomize() {
-        List<String> prev = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            prev.add(data.get(i));
-        }
-        Collections.shuffle(prev);
-        data.removeAllElements();
-        for (int i = 0; i < prev.size(); i++) {
-            data.addElement(prev.get(i));
-        }
-    }
 }

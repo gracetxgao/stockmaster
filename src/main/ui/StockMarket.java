@@ -1,14 +1,13 @@
 package ui;
 
-import model.Profile;
-import model.Stock;
-import model.StockList;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class StockMarket {
     private static final String JSON_STORE_PROFILE = "./data/profile.json";
@@ -132,6 +131,18 @@ public class StockMarket {
             change = -change;
         }
         return change;
+    }
+
+    // EFFECTS: filters transaction history for given input
+    public void handleFilterTransactionHistory(String input) {
+        TransactionHistory filteredList = profile.getTransactionHistory().filter(input);
+        pp.getTransactionsPanel().setTransactionHistoryList(filteredList);
+    }
+
+    // EFFECTS: randomizes transaction history list
+    public void handleRandomize() {
+        TransactionHistory shuffled = profile.getTransactionHistory().randomize();
+        pp.getTransactionsPanel().setTransactionHistoryList(shuffled);
     }
 
     // EFFECTS: saves profile and market status to file

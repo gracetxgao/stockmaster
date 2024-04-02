@@ -39,10 +39,14 @@ public class ProfilePanel extends JPanel {
         add(funds, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(PROFILE_WIDTH, PROFILE_HEIGHT));
         this.sm = sm;
-        transactionsPanel = new TransactionsPanel();
+        transactionsPanel = new TransactionsPanel(sm);
         add(transactionsPanel);
         this.profile = p;
         makeOwnedStocksTable(p.getOwnedStocks());
+    }
+
+    public TransactionsPanel getTransactionsPanel() {
+        return transactionsPanel;
     }
 
     // MODIFIES: this

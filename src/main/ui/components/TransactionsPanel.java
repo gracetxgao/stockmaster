@@ -1,6 +1,7 @@
 package ui.components;
 
 import model.TransactionHistory;
+import ui.StockMarket;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,26 +16,20 @@ public class TransactionsPanel extends JPanel {
     private RandomizeButton randomize;
 
     // constructs transactions panel with list, filter, and randomize and adds to transaction panel
-    public TransactionsPanel() {
+    public TransactionsPanel(StockMarket sm) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         setPreferredSize(new Dimension(TRANSACTIONS_WIDTH, TRANSACTIONS_HEIGHT));
         transactionsLabel = new JLabel("transaction history");
         add(transactionsLabel);
         transactionsList = new TransactionsList(this);
-        filter = new TransactionsFilter(this, transactionsList);
-        randomize = new RandomizeButton(this);
+        filter = new TransactionsFilter(this, sm);
+        randomize = new RandomizeButton(this, sm);
     }
 
     // MODIFIES: this
     // EFFECTS: sets transaction history list
     public void setTransactionHistoryList(TransactionHistory transactionHistory) {
         transactionsList.setTransactionHistoryList(transactionHistory);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: puts transaction history list in random order
-    public void randomize() {
-        transactionsList.randomize();
     }
 
     // MODIFIES: this

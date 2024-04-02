@@ -62,12 +62,16 @@ public class Profile implements Writable {
     // EFFECTS: edits number of shares owned of a stock
     public void changeOwnedStocks(Stock stock, int amount) {
         this.ownedStocks.put(stock.getCompany(), ownedStocks.get(stock.getCompany()) + amount);
+        EventLog.getInstance().logEvent(new Event("amount of owned shares of "
+                + stock.getCompany() + " changed to " + amount));
     }
 
     // MODIFIES: this
     // EFFECTS: edits net worth on day change
     public void changeNetWorth(BigDecimal change) {
         this.netWorth = netWorth.add(change);
+        EventLog.getInstance().logEvent(new Event("net worth changed to  "
+                + netWorth));
     }
 
     // MODIFIES: this
@@ -78,6 +82,8 @@ public class Profile implements Writable {
         BigDecimal cost = stock.getPrice().multiply(BigDecimal.valueOf(amount));
         if (this.funds.compareTo(cost) == -1) {
             System.out.println("Insufficient funds");
+            EventLog.getInstance().logEvent(new Event("attempted to buy "
+                    + amount + " shares of " + stock.getCompany() + " but failed due to insufficient funds"));
             return false;
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
@@ -88,6 +94,8 @@ public class Profile implements Writable {
             BigDecimal price = stock.getPrice();
             System.out.println("Bought " + amount + " shares of " + company + " for $" + price + " each");
             changeOwnedStocks(stock, amount);
+            EventLog.getInstance().logEvent(new Event("bought "
+                    + amount + " shares of " + stock.getCompany()));
             return true;
         }
     }
@@ -99,6 +107,8 @@ public class Profile implements Writable {
     public Boolean sellStock(Stock stock, int amount) {
         if (ownedStocks.get(stock.getCompany()) < Math.abs(amount)) {
             System.out.println("Not enough owned shares");
+            EventLog.getInstance().logEvent(new Event("attempted to sell "
+                    + amount + " shares of " + stock.getCompany() + " but failed due to insufficient amount owned"));
             return false;
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
@@ -109,6 +119,8 @@ public class Profile implements Writable {
             BigDecimal price = stock.getPrice();
             System.out.println("Sold " + Math.abs(amount) + " shares of " + company + " for $" + price + " each");
             changeOwnedStocks(stock, amount);
+            EventLog.getInstance().logEvent(new Event("sold "
+                    + amount + " shares of " + stock.getCompany()));
             return true;
         }
     }
