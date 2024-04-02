@@ -28,6 +28,5 @@ public class BuyButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         stock = sp.getStock();
         sm.handleBuyStock(stock);
-        System.out.println("tried to buy " + stock.getCompany());
     }
 }

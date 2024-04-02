@@ -22,6 +22,5 @@ public class NextButton implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         sm.handleNextDay();
-        System.out.println("next day clicked");
     }
 }

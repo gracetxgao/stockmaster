@@ -22,6 +22,5 @@ public class ReloadButton implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         sm.handleReload();
-        System.out.println("loaded status");
     }
 }

@@ -28,6 +28,5 @@ public class TransactionsFilter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         target = text.getText();
         sm.handleFilterTransactionHistory(target);
-        System.out.println("updated filter: " + target);
     }
 }

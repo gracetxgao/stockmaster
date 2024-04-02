@@ -40,7 +40,6 @@ public class StockMarketSimulator extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 EventLog el = EventLog.getInstance();
-                System.out.println("window closing");
                 for (Event next : el) {
                     System.out.println(next.toString());
                 }

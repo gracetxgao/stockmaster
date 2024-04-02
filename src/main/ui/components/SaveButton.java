@@ -22,6 +22,5 @@ public class SaveButton implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         sm.handleSave();
-        System.out.println("saved status");
     }
 }
