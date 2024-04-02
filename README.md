@@ -89,5 +89,5 @@ new transaction added with stock RIVN, amount -1, price 20.33 <br>
 Tue Apr 02 16:45:07 PDT 2024 <br>
 amount of owned shares of RIVN changed to -1 <br>
 Tue Apr 02 16:45:07 PDT 2024 <br>
-sold 1 shares of RIVN <br>
+sold 1 shares of RIVN
 
