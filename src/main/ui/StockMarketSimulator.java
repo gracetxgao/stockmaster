@@ -1,7 +1,14 @@
 package ui;
 
+import model.EventLog;
+import model.Event;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.FileWriter;
 
 // represents a stock market simulator
 public class StockMarketSimulator extends JFrame {
@@ -11,6 +18,7 @@ public class StockMarketSimulator extends JFrame {
     private StocksPanel sp;
     private MenuPanel mp;
     private StockMarket sm;
+    private FileWriter fw;
 
     // EFFECTS: constructs stock market simulator with profile, stocks, and menu panel
     public StockMarketSimulator() {
@@ -28,6 +36,18 @@ public class StockMarketSimulator extends JFrame {
         add(pp, BorderLayout.EAST);
         add(mp, BorderLayout.SOUTH);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog el = EventLog.getInstance();
+                System.out.println("window closing");
+                for (Event next : el) {
+                    System.out.println(next.toString());
+                }
+                super.windowClosing(e);
+            }
+        });
+
         setSize(WIDTH, HEIGHT);
 
         setVisible(true);
@@ -35,7 +55,7 @@ public class StockMarketSimulator extends JFrame {
 
     // EFFECTS: creates popup error message
     public void showError(String s) {
-        JOptionPane.showMessageDialog(this, s,"error",
+        JOptionPane.showMessageDialog(this, s, "error",
                 JOptionPane.ERROR_MESSAGE);
     }
 
