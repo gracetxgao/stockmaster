@@ -91,5 +91,17 @@ new transaction added with stock TSLA, amount -3, price 31.32 <br/>
 Tue Apr 02 23:45:46 PDT 2024 <br/>
 filter match: {"amount":-3,"price":31.32,"stock name":"TSLA"} 
 
-Phase 4: Task 3
-- 
+# Phase 4: Task 3
+My UML class diagram currently looks very messy, since there are a lot of classes associated with each other that do not
+need to be. I wanted a way to access the private getters from some of the classes, so I passed the classes as fields
+through to other classes, so that when I instantiated classes through those, I could use them as arguments. However, I 
+could have approached this a different way by only associating the classes with those that directly used them. For 
+example, since my StockMarket class had access to the Profile and StockList classes, I passed StockMarket through to 
+almost all the panel classes so that they could access the fields in Profile and StockList. This made the UML diagram 
+look unnecessarily messy around the StockMarket class. <br/>
+
+Another thing I could have done differently was to use more abstract classes or interfaces. Most of the panel classes 
+had similar constructors, so I could have made an abstract class called Panel and made the other panels extend that. I
+also could have had an abstract class that all the buttons extended, for a similar reason. This would have reduced the
+amount of duplicate code in my project.
+

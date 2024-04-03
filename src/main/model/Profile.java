@@ -104,8 +104,8 @@ public class Profile implements Writable {
     //          returns true if successful and false if not
     public Boolean sellStock(Stock stock, int amount) {
         if (ownedStocks.get(stock.getCompany()) < Math.abs(amount)) {
-            EventLog.getInstance().logEvent(new Event("attempted to sell "
-                    + Math.abs(amount) + " shares of " + stock.getCompany() + " but failed due to insufficient amount owned"));
+            EventLog.getInstance().logEvent(new Event("attempted to sell " + Math.abs(amount) + " shares of "
+                    + stock.getCompany() + " but failed due to insufficient amount owned"));
             return false;
         } else {
             this.funds = this.funds.subtract(stock.getPrice().multiply(BigDecimal.valueOf(amount)));
