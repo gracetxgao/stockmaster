@@ -42,52 +42,54 @@ on the "randomize" button in the transaction panel
 - You can reload the state of my application by clicking the "load" button in the menu panel
 
 # Phase 4: Task 2
-Tue Apr 02 16:44:41 PDT 2024 <br>
-attempted to buy 4 shares of TSLA but failed due to insufficient funds <br>
-Tue Apr 02 16:44:46 PDT 2024 <br>
-new transaction added with stock TSLA, amount 1, price 30.0 <br>
-Tue Apr 02 16:44:46 PDT 2024 <br>
-amount of owned shares of TSLA changed to 1 <br>
-Tue Apr 02 16:44:46 PDT 2024 <br>
-bought 1 shares of TSLA <br>
-Tue Apr 02 16:44:47 PDT 2024 <br>
-AAPL price changed to 139.59 <br>
-Tue Apr 02 16:44:47 PDT 2024 <br>
-GOOG price changed to 113.85 <br>
-Tue Apr 02 16:44:47 PDT 2024 <br>
-NVDA price changed to 700.81 <br>
-Tue Apr 02 16:44:47 PDT 2024 <br>
-AMZN price changed to 169.93 <br>
-Tue Apr 02 16:44:47 PDT 2024 <br>
-RIVN price changed to 20.33 <br> 
-Tue Apr 02 16:44:47 PDT 2024 <br>
-TSLA price changed to 30.60 <br>
-Tue Apr 02 16:44:47 PDT 2024 <br>
-net worth changed to  100.60 <br>
-Tue Apr 02 16:44:57 PDT 2024 <br>
-new transaction added with stock RIVN, amount 1, price 20.33 <br>
-Tue Apr 02 16:44:57 PDT 2024 <br>
-amount of owned shares of RIVN changed to 1 <br>
-Tue Apr 02 16:44:57 PDT 2024 <br>
-bought 1 shares of RIVN <br>
-Tue Apr 02 16:45:00 PDT 2024 <br>
-attempted to sell -3 shares of RIVN but failed due to insufficient amount owned <br>
-Tue Apr 02 16:45:02 PDT 2024 <br>
-shuffling transaction history <br>
-Tue Apr 02 16:45:02 PDT 2024 <br>
-new transaction added with stock RIVN, amount 1, price 20.33 <br>
-Tue Apr 02 16:45:02 PDT 2024 <br>
-new transaction added with stock TSLA, amount 1, price 30.0 <br>
-Tue Apr 02 16:45:04 PDT 2024 <br>
-filtering transaction history for: rivn <br>
-Tue Apr 02 16:45:04 PDT 2024 <br>
-new transaction added with stock RIVN, amount 1, price 20.33 <br>
-Tue Apr 02 16:45:04 PDT 2024 <br>
-filter match: {"amount":1,"price":20.33,"stock name":"RIVN"} <br>
-Tue Apr 02 16:45:07 PDT 2024 <br>
-new transaction added with stock RIVN, amount -1, price 20.33 <br>
-Tue Apr 02 16:45:07 PDT 2024 <br>
-amount of owned shares of RIVN changed to -1 <br>
-Tue Apr 02 16:45:07 PDT 2024 <br>
-sold 1 shares of RIVN
+Tue Apr 02 23:45:32 PDT 2024 <br/>
+new transaction added with stock TSLA, amount 3, price 30.0 <br/>
+Tue Apr 02 23:45:32 PDT 2024 <br/>
+amount of owned shares of TSLA changed to 3 <br/>
+Tue Apr 02 23:45:32 PDT 2024 <br/>
+bought 3 shares of TSLA <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+AAPL price changed to 149.01 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+GOOG price changed to 114.85 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+NVDA price changed to 719.19 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+AMZN price changed to 180.88 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+RIVN price changed to 18.94 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+TSLA price changed to 31.32 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+net worth changed to  101.32 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+net worth changed to  102.64 <br/>
+Tue Apr 02 23:45:34 PDT 2024 <br/>
+net worth changed to  103.96 <br/>
+Tue Apr 02 23:45:38 PDT 2024 <br/>
+attempted to sell 4 shares of TSLA but failed due to insufficient amount owned <br/>
+Tue Apr 02 23:45:42 PDT 2024 <br/>
+new transaction added with stock TSLA, amount -3, price 31.32 <br/>
+Tue Apr 02 23:45:42 PDT 2024 <br/>
+amount of owned shares of TSLA changed to -3 <br/>
+Tue Apr 02 23:45:42 PDT 2024 <br/>
+sold 3 shares of TSLA <br/>
+Tue Apr 02 23:45:44 PDT 2024 <br/>
+shuffling transaction history <br/>
+Tue Apr 02 23:45:44 PDT 2024 <br/>
+new transaction added with stock TSLA, amount 3, price 30.0 <br/>
+Tue Apr 02 23:45:44 PDT 2024 <br/>
+new transaction added with stock TSLA, amount -3, price 31.32 <br/>
+Tue Apr 02 23:45:46 PDT 2024 <br/>
+filtering transaction history for: tsla <br/>
+Tue Apr 02 23:45:46 PDT 2024 <br/>
+new transaction added with stock TSLA, amount 3, price 30.0 <br/>
+Tue Apr 02 23:45:46 PDT 2024 <br/>
+filter match: {"amount":3,"price":30,"stock name":"TSLA"} <br/>
+Tue Apr 02 23:45:46 PDT 2024 <br/>
+new transaction added with stock TSLA, amount -3, price 31.32 <br/>
+Tue Apr 02 23:45:46 PDT 2024 <br/>
+filter match: {"amount":-3,"price":31.32,"stock name":"TSLA"} 
 
+Phase 4: Task 3
+- 

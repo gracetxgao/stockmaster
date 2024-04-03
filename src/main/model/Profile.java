@@ -63,7 +63,7 @@ public class Profile implements Writable {
     public void changeOwnedStocks(Stock stock, int amount) {
         this.ownedStocks.put(stock.getCompany(), ownedStocks.get(stock.getCompany()) + amount);
         EventLog.getInstance().logEvent(new Event("amount of owned shares of "
-                + stock.getCompany() + " changed to " + amount));
+                + stock.getCompany() + " changed to " + Math.abs(amount)));
     }
 
     // MODIFIES: this

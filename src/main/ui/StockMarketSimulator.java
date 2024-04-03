@@ -18,7 +18,16 @@ public class StockMarketSimulator extends JFrame {
     private StocksPanel sp;
     private MenuPanel mp;
     private StockMarket sm;
-    private FileWriter fw;
+    private WindowAdapter wd = new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            EventLog el = EventLog.getInstance();
+            for (Event next : el) {
+                System.out.println(next.toString());
+            }
+            super.windowClosing(e);
+        }
+    };
 
     // EFFECTS: constructs stock market simulator with profile, stocks, and menu panel
     public StockMarketSimulator() {
@@ -31,24 +40,11 @@ public class StockMarketSimulator extends JFrame {
         sm.setProfilePanel(pp);
         sm.setMenuPanel(mp);
         sm.setStockMarketSimulator(this);
-
         add(sp);
         add(pp, BorderLayout.EAST);
         add(mp, BorderLayout.SOUTH);
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                EventLog el = EventLog.getInstance();
-                for (Event next : el) {
-                    System.out.println(next.toString());
-                }
-                super.windowClosing(e);
-            }
-        });
-
+        addWindowListener(wd);
         setSize(WIDTH, HEIGHT);
-
         setVisible(true);
     }
 
