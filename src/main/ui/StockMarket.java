@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
+// represents a stock market
 public class StockMarket {
     private static final String JSON_STORE_PROFILE = "./data/profile.json";
     private static final String JSON_STORE_STOCKS = "./data/stocks.json";
